@@ -1,0 +1,2674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎮 Study Buddy — Cognizant L1 Network Engineer Prep</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+:root {
+  --bg1:#0f0c29; --bg2:#302b63; --bg3:#24243e;
+  --card:#1a1a2e; --card2:#16213e; --line:#3a3a5c;
+  --pink:#e94560; --gold:#f5a623; --cyan:#00d2ff; --green:#2ecc71;
+  --txt:#e0e0e0; --mut:#8888aa;
+}
+body {
+  font-family:'Segoe UI',Tahoma,sans-serif;
+  background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+  background-attachment:fixed; color:var(--txt); min-height:100vh; padding:12px;
+}
+.container { max-width:1440px; margin:0 auto; }
+.hdr {
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:2px solid var(--pink); border-radius:18px;
+  padding:12px 18px; margin-bottom:12px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+  box-shadow:0 8px 30px rgba(233,69,96,.3);
+}
+.hdr h1 { font-size:1.15em; color:#fff; }
+.hdr h1 span { color:var(--pink); }
+.hdr .sub { font-size:.72em; color:var(--mut); }
+.stats { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+.stat { background:var(--bg1); border-radius:12px; padding:6px 12px; text-align:center; border:1px solid var(--line); min-width:84px; }
+.stat .v { font-size:1.15em; font-weight:bold; color:var(--gold); }
+.stat .l { font-size:.62em; text-transform:uppercase; letter-spacing:1px; color:var(--mut); }
+.stat.cd .v { color:var(--cyan); font-size:1em; }
+.ring { position:relative; width:64px; height:64px; }
+.ring svg { transform:rotate(-90deg); }
+.ring .pct { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:.9em; color:var(--cyan); }
+.iconbtn { background:var(--bg1); border:1px solid var(--line); color:var(--txt); border-radius:10px; padding:6px 10px; cursor:pointer; font-size:1em; }
+.iconbtn:hover { border-color:var(--gold); }
+.tabs { display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap; }
+.tab {
+  padding:9px 16px; border-radius:12px 12px 0 0; cursor:pointer;
+  background:var(--card); border:2px solid #2a2a4a; border-bottom:none;
+  font-weight:600; color:var(--mut); transition:.2s; font-size:.88em; position:relative;
+}
+.tab:hover { color:#fff; }
+.tab.active { background:var(--card2); color:var(--gold); border-color:var(--pink); }
+.tab .dot { position:absolute; top:6px; right:8px; width:8px; height:8px; background:var(--pink); border-radius:50%; display:none; }
+.tab .dot.show { display:block; animation:pulse 1.5s infinite; }
+@keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.4);opacity:.5} }
+.panel { display:none; background:#141428; border:2px solid #2a2a4a; border-radius:0 14px 14px 14px; padding:16px; animation:fadeIn .25s; }
+.panel.active { display:block; }
+@keyframes fadeIn { from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+.mission {
+  background:linear-gradient(90deg,rgba(233,69,96,.15),rgba(245,166,35,.1));
+  border:1px solid var(--pink); border-radius:14px; padding:12px 16px; margin-bottom:14px;
+  display:flex; flex-wrap:wrap; gap:10px; align-items:center; justify-content:space-between;
+}
+.mission .mtitle { font-weight:700; color:var(--gold); }
+.mission .mitems { display:flex; gap:8px; flex-wrap:wrap; }
+.mitem { background:var(--bg1); border:1px solid var(--line); border-radius:10px; padding:6px 12px; font-size:.8em; cursor:pointer; transition:.15s; user-select:none; }
+.mitem.done { border-color:var(--green); color:var(--green); text-decoration:line-through; opacity:.75; }
+.mitem:hover { border-color:var(--gold); }
+.watch-layout { display:grid; grid-template-columns: 1.4fr 1fr; gap:14px; }
+@media(max-width:1020px){ .watch-layout{grid-template-columns:1fr;} }
+.video-frame { position:relative; width:100%; padding-top:56.25%; border-radius:12px; overflow:hidden; background:#000; border:2px solid var(--line); }
+.video-frame iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+.vid-title { margin:8px 0 2px; font-size:1em; color:#fff; }
+.vid-meta { color:var(--mut); font-size:.78em; margin-bottom:6px; }
+.jumpbtn {
+  display:inline-flex; align-items:center; gap:5px; margin-top:7px; margin-right:6px;
+  padding:4px 12px; border-radius:8px; border:1px solid var(--cyan); background:rgba(0,210,255,.08);
+  color:var(--cyan); font-weight:600; font-size:.78em; cursor:pointer; transition:.15s;
+}
+.jumpbtn:hover { background:rgba(0,210,255,.2); transform:translateY(-1px); }
+.qcard.done .jumpbtn { border-color:var(--green); color:var(--green); background:rgba(46,204,113,.08); }
+.topo { margin-top:8px; width:100%; border-radius:10px; border:1px solid var(--line); cursor:zoom-in; display:none; }
+select { width:100%; padding:9px; border-radius:10px; background:var(--bg1); color:#fff; border:1px solid var(--line); font-size:.9em; margin-bottom:8px; }
+.qcard { background:var(--card); border:1px solid var(--line); border-radius:12px; margin-bottom:8px; overflow:hidden; transition:.2s; }
+.qcard.done { border-color:var(--green); box-shadow:0 0 12px rgba(46,204,113,.15); }
+.qhead { padding:9px 12px; cursor:pointer; display:flex; gap:9px; align-items:flex-start; }
+.qhead:hover { background:rgba(255,255,255,.03); }
+.qnum { color:var(--gold); font-weight:bold; min-width:30px; font-size:.85em; }
+.qtext { flex:1; font-size:.86em; }
+.qbadge { font-size:.6em; padding:2px 8px; border-radius:8px; white-space:nowrap; color:#fff; }
+.qbody { display:none; padding:0 12px 10px 52px; font-size:.83em; line-height:1.55; color:#c8c8dd; }
+.qcard.open .qbody { display:block; }
+.gotbtn { margin-top:7px; margin-right:6px; padding:4px 12px; border-radius:8px; border:none; cursor:pointer; font-weight:600; font-size:.78em; }
+.gotbtn.yes { background:var(--green); color:#06281a; }
+.gotbtn.notyet { background:var(--line); color:#ccc; }
+.gotbtn.undo { background:var(--gold); color:#2b1d00; }
+.searchbox { width:100%; padding:9px 12px; border-radius:10px; background:var(--bg1); border:1px solid var(--line); color:#fff; font-size:.9em; margin-bottom:10px; }
+.searchbox:focus { outline:none; border-color:var(--gold); }
+.quiz-box { max-width:860px; margin:0 auto; }
+.progress-bar { height:8px; background:var(--bg1); border-radius:6px; overflow:hidden; margin-bottom:12px; }
+.progress-fill { height:100%; background:linear-gradient(90deg,var(--pink),var(--gold)); width:0%; transition:.4s; }
+.quiz-q { font-size:1.12em; color:#fff; margin-bottom:14px; line-height:1.5; }
+.quiz-q .kbd-hint { font-size:.6em; color:var(--mut); }
+.opt {
+  display:block; width:100%; text-align:left; padding:12px 15px; margin-bottom:9px;
+  background:var(--card); border:2px solid var(--line); border-radius:12px; color:var(--txt);
+  font-size:.92em; cursor:pointer; transition:.15s; position:relative;
+}
+.opt .key { display:inline-block; width:22px; height:22px; line-height:22px; text-align:center; background:var(--bg1); border-radius:6px; margin-right:10px; font-size:.8em; color:var(--mut); border:1px solid var(--line); }
+.opt:hover:not(:disabled) { border-color:var(--gold); transform:translateX(4px); }
+.opt.correct { border-color:var(--green); background:rgba(46,204,113,.15); }
+.opt.wrong { border-color:var(--pink); background:rgba(233,69,96,.15); }
+.expl { background:var(--bg1); border-left:4px solid var(--gold); border-radius:0 10px 10px 0; padding:11px 13px; margin:10px 0; font-size:.86em; line-height:1.55; display:none; }
+.expl.show { display:block; }
+/* ACTIVE LISTENING CHECK-IN */
+#checkinov { position:fixed; inset:0; z-index:2400; display:none; flex-direction:column;
+  align-items:center; justify-content:center; padding:18px; background:rgba(6,4,22,.97); }
+#checkinov.show { display:flex; }
+.checkin-box { width:100%; max-width:560px; background:linear-gradient(135deg,var(--card),var(--card2));
+  border:3px solid var(--cyan); border-radius:18px; padding:24px; box-shadow:0 24px 80px rgba(0,210,255,.3); }
+.checkin-badge { display:inline-block; background:var(--cyan); color:#06281a; font-weight:900; font-size:.75em;
+  padding:4px 12px; border-radius:20px; margin-bottom:10px; letter-spacing:1px; }
+.checkin-q { font-size:1.1em; color:#fff; margin:12px 0 16px; line-height:1.5; }
+.checkin-opts .opt { margin-bottom:8px; }
+.checkin-expl { background:var(--bg1); border-left:4px solid var(--gold); border-radius:0 10px 10px 0;
+  padding:11px 13px; margin:12px 0; font-size:.86em; line-height:1.55; display:none; }
+.checkin-expl.show { display:block; }
+.checkin-resume { margin-top:14px; padding:12px 28px; border-radius:12px; border:none;
+  background:var(--green); color:#06281a; font-weight:800; font-size:1em; cursor:pointer; transition:.2s; display:none; }
+.checkin-resume.show { display:inline-block; }
+.checkin-resume:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(46,204,113,.4); }
+.checkin-stats { display:flex; gap:16px; justify-content:center; margin-top:12px; font-size:.8em; color:var(--mut); }
+.checkin-stats b { color:var(--gold); }
+.al-toggle { display:flex; align-items:center; gap:8px; margin-bottom:8px; }
+.al-toggle label { font-size:.82em; color:var(--mut); cursor:pointer; user-select:none; }
+.al-switch { position:relative; width:42px; height:22px; background:var(--line); border-radius:11px; cursor:pointer; transition:.2s; }
+.al-switch.on { background:var(--green); }
+.al-switch::after { content:''; position:absolute; top:2px; left:2px; width:18px; height:18px;
+  background:#fff; border-radius:50%; transition:.2s; }
+.al-switch.on::after { left:22px; }
+.al-next-in { font-size:.72em; color:var(--cyan); margin-left:auto; }
+.next-btn { padding:10px 26px; background:linear-gradient(90deg,var(--pink),var(--gold)); border:none; border-radius:10px; color:#fff; font-weight:700; cursor:pointer; font-size:.92em; display:none; }
+.next-btn.show { display:inline-block; }
+.topic-filter { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px; }
+.chip { padding:5px 12px; border-radius:16px; font-size:.74em; cursor:pointer; background:var(--card); border:1px solid var(--line); color:var(--mut); }
+.chip.on { background:var(--pink); color:#fff; border-color:var(--pink); }
+.mode-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:16px 0; }
+.mode-card { background:var(--card); border:2px solid var(--line); border-radius:14px; padding:18px; cursor:pointer; transition:.2s; text-align:left; color:var(--txt); }
+.mode-card:hover { border-color:var(--gold); transform:translateY(-3px); }
+.mode-card h3 { color:var(--gold); margin-bottom:6px; }
+.mode-card p { font-size:.8em; color:var(--mut); line-height:1.5; }
+.flash-wrap { max-width:640px; margin:0 auto; text-align:center; }
+.flashcard {
+  background:linear-gradient(135deg,var(--card),var(--card2));
+  border:2px solid var(--line); border-radius:18px; min-height:260px;
+  display:flex; align-items:center; justify-content:center; padding:28px;
+  font-size:1.25em; line-height:1.6; cursor:pointer; position:relative;
+  transition:.3s; margin-bottom:14px; color:#fff;
+}
+.flashcard:hover { border-color:var(--gold); }
+.flashcard.flipped { border-color:var(--cyan); }
+.flashcard .topic-tag { position:absolute; top:10px; left:14px; font-size:.55em; color:var(--mut); text-transform:uppercase; letter-spacing:1px; }
+.flashcard .hint { position:absolute; bottom:10px; left:0; right:0; font-size:.55em; color:var(--mut); }
+.flash-nav { display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+.grade-btn { padding:11px 18px; border-radius:10px; border:none; cursor:pointer; font-weight:700; font-size:.9em; transition:.15s; }
+.grade-btn:hover { transform:translateY(-2px); }
+.g-again { background:var(--pink); color:#fff; }
+.g-hard { background:#e77; color:#fff; }
+.g-good { background:var(--gold); color:#2b1d00; }
+.g-easy { background:var(--green); color:#06281a; }
+.boxes { display:flex; gap:4px; justify-content:center; align-items:center; margin:10px 0; }
+.box { width:34px; height:8px; border-radius:4px; background:var(--bg1); border:1px solid var(--line); }
+.box.on { background:var(--cyan); border-color:var(--cyan); }
+.sim-q { font-size:1.15em; color:var(--gold); margin:16px 0; line-height:1.5; min-height:52px; }
+.timer { font-size:1.5em; color:var(--cyan); font-weight:bold; text-align:center; margin:8px 0; }
+.model-answer { background:var(--bg1); border:1px solid var(--line); border-radius:12px; padding:13px; font-size:.88em; line-height:1.6; color:#c8c8dd; display:none; margin:10px 0; text-align:left; }
+.model-answer.show { display:block; }
+.grade-row { display:flex; gap:8px; justify-content:center; margin:12px 0; flex-wrap:wrap; }
+.center { text-align:center; }
+.muted { color:var(--mut); font-size:.8em; }
+.hidden { display:none !important; }
+.btn { padding:11px 24px; border:none; border-radius:10px; cursor:pointer; font-weight:700; font-size:.9em; transition:.15s; }
+.btn:hover { transform:translateY(-2px); }
+.btn.primary { background:linear-gradient(90deg,var(--pink),var(--gold)); color:#fff; }
+.result-hero { text-align:center; padding:22px 0; }
+.result-hero .score { font-size:2.8em; font-weight:bold; }
+.result-hero .msg { margin:8px 0; font-size:1em; }
+.ready-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:14px; }
+.ready-card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:15px; }
+.ready-card h3 { color:var(--gold); margin-bottom:10px; font-size:.95em; }
+.big-pct { text-align:center; padding:10px 0 16px; }
+.big-pct .pct { font-size:3.2em; font-weight:bold; color:var(--cyan); }
+.big-pct .lbl { color:var(--mut); font-size:.75em; text-transform:uppercase; letter-spacing:2px; }
+.topic-row { margin-bottom:8px; }
+.topic-name { display:flex; justify-content:space-between; font-size:.8em; margin-bottom:3px; }
+.topic-bar { height:8px; background:var(--bg1); border-radius:6px; overflow:hidden; }
+.topic-fill { height:100%; border-radius:6px; transition:.5s; }
+.weak-list li { color:var(--pink); font-size:.83em; margin:4px 0 4px 18px; }
+.strong-list li { color:var(--green); font-size:.83em; margin:4px 0 4px 18px; }
+.coach { background:linear-gradient(135deg,#1a2e1a,#162416); border:2px solid var(--green); border-radius:14px; padding:13px 15px; margin-top:12px; font-size:.87em; line-height:1.6; }
+.coach b { color:var(--green); }
+.ach-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:10px; margin-top:10px; }
+.ach { background:var(--bg1); border:1px solid var(--line); border-radius:12px; padding:12px 8px; text-align:center; opacity:.35; transition:.3s; }
+.ach.won { opacity:1; border-color:var(--gold); box-shadow:0 0 14px rgba(245,166,35,.25); }
+.ach .ico { font-size:1.8em; }
+.ach .nm { font-size:.72em; font-weight:700; margin-top:4px; color:#fff; }
+.ach .ds { font-size:.62em; color:var(--mut); margin-top:2px; }
+#toasts { position:fixed; top:14px; right:14px; z-index:999; display:flex; flex-direction:column; gap:8px; }
+.toast { background:var(--card2); border:2px solid var(--gold); border-radius:12px; padding:10px 16px; font-size:.85em; color:#fff; animation:toastIn .3s; box-shadow:0 6px 24px rgba(0,0,0,.5); max-width:300px; }
+@keyframes toastIn { from{transform:translateX(120%);} to{transform:none;} }
+/* ===== FUN LAYER ===== */
+/* XP particles */
+.xpp { position:fixed; z-index:1500; pointer-events:none; font-weight:900; font-size:1.05em;
+  text-shadow:0 2px 8px rgba(0,0,0,.6); animation:xpFly 1.15s cubic-bezier(.2,.7,.3,1) forwards; }
+@keyframes xpFly {
+  0% { opacity:0; transform:translate(0,0) scale(.4); }
+  12% { opacity:1; transform:translate(0,-14px) scale(1.35); }
+  100% { opacity:0; transform:translate(var(--dx,20px),-110px) scale(.9); }
+}
+/* floating combo */
+#comboFloat { position:fixed; z-index:1501; pointer-events:none; font-weight:900; font-size:2.2em;
+  color:var(--gold); text-shadow:0 0 18px rgba(245,166,35,.9),0 3px 0 #7a4c00; opacity:0;
+  animation:comboPop .8s cubic-bezier(.2,.8,.3,1) forwards; letter-spacing:-1px; }
+@keyframes comboPop {
+  0% { opacity:0; transform:scale(.3) rotate(-8deg); }
+  25% { opacity:1; transform:scale(1.25) rotate(3deg); }
+  60% { transform:scale(1) rotate(-2deg); }
+  100% { opacity:0; transform:scale(1.1) translateY(-40px) rotate(2deg); }
+}
+/* screen flash */
+#flashfx { position:fixed; inset:0; z-index:1400; pointer-events:none; opacity:0; }
+#flashfx.good { animation:screenGood .5s; }
+#flashfx.bad { animation:screenBad .5s; }
+@keyframes screenGood { 0%{opacity:.28;} 100%{opacity:0;} }
+@keyframes screenBad { 0%{opacity:.3;} 100%{opacity:0;} }
+/* answer button pop */
+.opt.correct { animation:popB .35s cubic-bezier(.2,1.6,.4,1); }
+@keyframes popB { 0%{transform:scale(1);} 45%{transform:scale(1.045);} 100%{transform:scale(1);} }
+/* shake on wrong */
+.opt.wrong { animation:shakeB .4s; }
+@keyframes shakeB { 0%,100%{transform:translateX(0);} 20%{transform:translateX(-7px);} 40%{transform:translateX(6px);} 60%{transform:translateX(-4px);} 80%{transform:translateX(3px);} }
+/* MASCOT */
+#mascot { position:fixed; left:14px; bottom:14px; z-index:1450; display:flex; align-items:flex-end; gap:8px;
+  cursor:pointer; user-select:none; transition:transform .2s; }
+#mascot:hover { transform:translateY(-4px) rotate(-2deg); }
+#mascot .mv { font-size:2.6em; line-height:1; filter:drop-shadow(0 6px 14px rgba(0,0,0,.55)); animation:bob 3.2s ease-in-out infinite; }
+@keyframes bob { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-9px);} }
+#mascot.excited .mv { animation:bobFast .5s ease-in-out infinite; }
+@keyframes bobFast { 0%,100%{transform:translateY(0) rotate(-4deg);} 50%{transform:translateY(-14px) rotate(4deg);} }
+#mascot .bubble { background:var(--card2); border:2px solid var(--gold); border-radius:14px 14px 14px 3px;
+  padding:8px 12px; font-size:.78em; max-width:230px; color:#fff; line-height:1.45; box-shadow:0 8px 22px rgba(0,0,0,.5);
+  animation:toastIn .25s; }
+#mascot .bubble b { color:var(--gold); }
+/* streak flame on header stat */
+.stat.streaklit { border-color:#f5a623; box-shadow:0 0 16px rgba(245,166,35,.45); }
+.stat.streaklit .v { animation:flame .7s ease-in-out infinite alternate; }
+@keyframes flame { from{transform:scale(1);} to{transform:scale(1.12) rotate(-2deg);} }
+/* rank-up takeover */
+#rankup { position:fixed; inset:0; z-index:1600; display:none; align-items:center; justify-content:center;
+  flex-direction:column; gap:10px; background:radial-gradient(circle at 50% 40%,rgba(245,166,35,.22),rgba(10,8,30,.94) 70%);
+  animation:fadeIn .3s; cursor:pointer; }
+#rankup.show { display:flex; }
+#rankup .big { font-size:5.5em; animation:megaPop .6s cubic-bezier(.2,1.8,.3,1); filter:drop-shadow(0 10px 30px rgba(245,166,35,.5)); }
+@keyframes megaPop { 0%{transform:scale(0) rotate(-30deg);} 70%{transform:scale(1.25) rotate(6deg);} 100%{transform:scale(1) rotate(0);} }
+#rankup .rt { font-size:2em; font-weight:900; color:var(--gold); text-shadow:0 4px 0 #7a4c00; animation:megaPop .6s .1s cubic-bezier(.2,1.8,.3,1) backwards; }
+#rankup .rs { color:#fff; font-size:.95em; }
+/* progress bar shine */
+.progress-fill { position:relative; overflow:hidden; }
+.progress-fill::after { content:''; position:absolute; inset:0; background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);
+  transform:translateX(-100%); animation:shine 2.2s infinite; }
+@keyframes shine { to { transform:translateX(100%); } }
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:998; }
+#zoomov { position:fixed; inset:0; background:rgba(0,0,0,.9); z-index:1000; display:none; align-items:center; justify-content:center; cursor:zoom-out; padding:20px; }
+#zoomov.show { display:flex; }
+#zoomov img { max-width:96vw; max-height:92vh; border-radius:12px; }
+/* AUTH */
+.iconbtn { position:relative; }
+/* PRE-CHECK CHALLENGE */
+/* QUEST + CHEST + BOSS */
+.quest-bar {
+  background:linear-gradient(90deg,rgba(245,166,35,.1),rgba(233,69,96,.12));
+  border:2px solid var(--gold); border-radius:14px; padding:12px 16px; margin-bottom:12px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+}
+.quest-bar .qtitle { color:var(--gold); font-weight:800; font-size:.95em; }
+.quest-bar .qsub { color:var(--mut); font-size:.76em; margin-top:2px; }
+.pips { display:flex; gap:6px; margin-top:7px; flex-wrap:wrap; }
+.pip { width:26px; height:8px; border-radius:5px; background:var(--bg1); border:1px solid var(--line); transition:.3s; }
+.pip.on { background:var(--green); border-color:var(--green); box-shadow:0 0 8px rgba(46,204,113,.5); }
+.chestbtn {
+  padding:12px 22px; border:none; border-radius:13px; cursor:pointer; font-weight:900; font-size:.95em;
+  background:linear-gradient(90deg,#f5a623,#e94560); color:#fff; white-space:nowrap;
+  animation:chestPulse 1.2s infinite; box-shadow:0 6px 20px rgba(245,166,35,.45);
+}
+@keyframes chestPulse { 0%,100%{transform:scale(1);} 50%{transform:scale(1.07);} }
+.boss-card {
+  background:linear-gradient(90deg,rgba(165,94,234,.16),rgba(233,69,96,.14));
+  border:2px solid #a55eea; border-radius:14px; padding:12px 16px; margin-bottom:12px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+}
+.boss-card .bname { color:#d7aefc; font-weight:900; font-size:1em; text-shadow:0 0 14px rgba(165,94,234,.6); }
+.boss-card .bsub { color:var(--mut); font-size:.76em; margin-top:2px; }
+.boss-btn {
+  padding:12px 22px; border:none; border-radius:13px; cursor:pointer; font-weight:900; font-size:.92em;
+  background:linear-gradient(90deg,#a55eea,#e94560); color:#fff; white-space:nowrap;
+  box-shadow:0 6px 20px rgba(165,94,234,.4);
+}
+.boss-btn:hover { transform:translateY(-2px); }
+.bossbadges { display:flex; gap:4px; font-size:1.05em; align-items:center; }
+.ov { position:fixed; inset:0; z-index:2200; display:none; align-items:center; justify-content:center;
+  padding:16px; background:rgba(8,6,26,.93); backdrop-filter:blur(6px); }
+.ov.show { display:flex; }
+.chestcard { text-align:center; width:100%; max-width:420px; }
+.chest-ico { font-size:6.5em; cursor:pointer; display:inline-block; animation:bob 2.4s ease-in-out infinite;
+  filter:drop-shadow(0 14px 30px rgba(245,166,35,.5)); transition:.2s; }
+.chest-ico:hover { transform:scale(1.1) rotate(-3deg); }
+.chest-ico.shaking { animation:chestShake .5s ease-in-out infinite; }
+@keyframes chestShake { 0%,100%{transform:rotate(-5deg) scale(1.05);} 50%{transform:rotate(5deg) scale(1.12);} }
+.chest-ico.opened { animation:megaPop .6s cubic-bezier(.2,1.8,.3,1); }
+.rarity { font-size:1.5em; font-weight:900; margin:10px 0 4px; }
+.rarity.common { color:#aaaacc; }
+.rarity.rare { color:var(--cyan); text-shadow:0 0 16px rgba(0,210,255,.7); }
+.rarity.epic { color:#a55eea; text-shadow:0 0 16px rgba(165,94,234,.7); }
+.rarity.legendary { color:var(--gold); text-shadow:0 0 22px rgba(245,166,35,.9); }
+.reward-line { color:#fff; font-size:1.05em; margin:8px 0; }
+.bosscard2 { width:100%; max-width:600px; }
+.hearts { font-size:1.6em; letter-spacing:4px; text-align:center; margin-bottom:8px; }
+.hearts .lost { opacity:.25; filter:grayscale(1); }
+.boss-q { font-size:1.12em; color:#d7aefc; font-weight:700; line-height:1.5; margin:12px 0; min-height:56px; }
+.bosstimer { height:10px; background:var(--bg1); border-radius:6px; overflow:hidden; margin-bottom:14px; border:1px solid var(--line); }
+.bosstimer .fill { height:100%; background:linear-gradient(90deg,#a55eea,#e94560); transition:width .95s linear; }
+.bossvictory { text-align:center; }
+.bossvictory .bico { font-size:5em; animation:megaPop .7s cubic-bezier(.2,1.8,.3,1); }
+/* HYPE INTRO GATE */
+#introov { position:fixed; inset:0; z-index:2300; display:none; flex-direction:column;
+  align-items:center; justify-content:center; padding:18px; background:rgba(6,4,22,.96); }
+#introov.show { display:flex; }
+.intro-frame { position:relative; width:100%; max-width:900px; padding-top:56.25%; border-radius:16px; overflow:hidden;
+  border:3px solid var(--gold); box-shadow:0 24px 80px rgba(245,166,35,.35); background:#000; }
+.intro-frame iframe { position:absolute; top:0; left:0; width:100%; height:100%; border:none; }
+.intro-ui { text-align:center; margin-top:14px; width:100%; max-width:900px; }
+.intro-title { font-weight:900; font-size:1.15em; color:var(--gold); text-shadow:0 0 18px rgba(245,166,35,.55); }
+.intro-sub { color:var(--mut); font-size:.84em; margin:6px 0 10px; }
+.intro-bar { height:12px; background:var(--bg1); border-radius:8px; overflow:hidden; border:1px solid var(--line); }
+.intro-bar .fill { height:100%; width:100%; background:linear-gradient(90deg,#f5a623,#e94560); transition:width 1s linear; }
+.intro-row { display:flex; gap:12px; justify-content:center; align-items:center; margin-top:12px; flex-wrap:wrap; }
+.intro-unlock { font-size:1.05em; font-weight:800; color:#fff; }
+#introSkip { padding:10px 20px; border-radius:11px; border:2px solid var(--pink); background:rgba(233,69,96,.12);
+  color:var(--pink); font-weight:800; cursor:pointer; font-size:.85em; transition:.2s; }
+#introSkip:not(:disabled):hover { background:rgba(233,69,96,.28); transform:translateY(-2px); }
+#introSkip:disabled { opacity:.4; cursor:not-allowed; }
+.precheck-bar {
+  background:linear-gradient(90deg,rgba(0,210,255,.12),rgba(46,204,113,.1));
+  border:2px solid var(--cyan); border-radius:14px; padding:12px 16px; margin-bottom:12px;
+  display:flex; flex-wrap:wrap; gap:12px; align-items:center; justify-content:space-between;
+}
+.precheck-bar h4 { color:var(--cyan); font-size:.95em; }
+.precheck-bar .pc-sub { color:var(--mut); font-size:.78em; margin-top:3px; line-height:1.45; }
+.precheck-bar.done-pc { border-color:var(--green); background:linear-gradient(90deg,rgba(46,204,113,.12),rgba(0,210,255,.08)); }
+.pcbtn {
+  padding:10px 20px; border:none; border-radius:12px; cursor:pointer; font-weight:800; font-size:.88em;
+  background:linear-gradient(90deg,#00d2ff,#2ecc71); color:#04202b; transition:.15s; white-space:nowrap;
+}
+.pcbtn:hover { transform:translateY(-2px) scale(1.02); }
+.pcov { position:fixed; inset:0; background:rgba(8,6,26,.92); backdrop-filter:blur(6px); z-index:2100;
+  display:none; align-items:center; justify-content:center; padding:16px; }
+.pcov.show { display:flex; }
+.pccard { background:linear-gradient(135deg,var(--card),var(--card2)); border:2px solid var(--cyan);
+  border-radius:20px; padding:26px; width:100%; max-width:560px; box-shadow:0 24px 70px rgba(0,0,0,.65); }
+.pccard h2 { color:#fff; margin-bottom:2px; font-size:1.15em; }
+.pcq-count { color:var(--mut); font-size:.78em; margin-bottom:16px; }
+.pc-question { font-size:1.08em; color:var(--gold); font-weight:700; line-height:1.5; margin-bottom:16px; min-height:54px; }
+.pc-opt {
+  display:block; width:100%; text-align:left; padding:12px 16px; margin-bottom:9px;
+  background:var(--bg1); border:2px solid var(--line); border-radius:12px; color:var(--txt);
+  font-size:.92em; cursor:pointer; transition:.15s;
+}
+.pc-opt:hover:not(:disabled) { border-color:var(--gold); transform:translateX(4px); }
+.pc-opt.correct { border-color:var(--green); background:rgba(46,204,113,.15); }
+.pc-opt.wrong { border-color:var(--pink); background:rgba(233,69,96,.15); animation:shakeB .4s; }
+.pc-feedback { background:var(--bg1); border-left:4px solid var(--gold); border-radius:0 10px 10px 0;
+  padding:12px 14px; margin:10px 0; font-size:.85em; line-height:1.55; color:#c8c8dd; display:none; }
+.pc-feedback.show { display:block; }
+.pc-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:12px; flex-wrap:wrap; }
+.pc-skip { background:none; border:1px dashed var(--line); color:var(--mut); padding:9px 16px;
+  border-radius:10px; cursor:pointer; font-size:.82em; }
+.pc-skip:hover { color:#fff; }
+.pc-results { text-align:center; }
+.pc-results .score { font-size:3em; font-weight:900; }
+.pc-results .verdict { font-size:1.05em; margin:8px 0 4px; }
+.pc-watchplan { background:var(--bg1); border:1px solid var(--line); border-radius:12px; padding:12px 14px;
+  margin:14px 0; text-align:left; font-size:.85em; line-height:1.7; }
+.pc-watchplan b { color:var(--gold); }
+.pc-watchplan .must { color:var(--pink); }
+.pc-watchplan .skip-ok { color:var(--green); }
+#syncDot { position:absolute; top:2px; right:2px; width:7px; height:7px; border-radius:50%; background:var(--green); opacity:0; transition:.3s; }
+#syncDot.on { opacity:1; }
+.authov { position:fixed; inset:0; background:rgba(10,8,30,.85); backdrop-filter:blur(4px); z-index:2000; display:none; align-items:center; justify-content:center; padding:16px; }
+.authov.show { display:flex; }
+.authcard { background:linear-gradient(135deg,var(--card),var(--card2)); border:2px solid var(--pink); border-radius:18px; padding:26px; width:100%; max-width:390px; box-shadow:0 20px 60px rgba(0,0,0,.6); }
+.authcard h2 { color:#fff; margin-bottom:4px; }
+.authcard .sub { color:var(--mut); font-size:.8em; margin-bottom:14px; line-height:1.5; }
+.atabs { display:flex; gap:6px; margin-bottom:14px; }
+.atab { flex:1; text-align:center; padding:8px; border-radius:10px; cursor:pointer; background:var(--bg1); border:1px solid var(--line); font-size:.85em; font-weight:700; color:var(--mut); }
+.atab.on { border-color:var(--gold); color:var(--gold); }
+.afield { width:100%; padding:10px 12px; border-radius:10px; background:var(--bg1); border:1px solid var(--line); color:#fff; font-size:.9em; margin-bottom:10px; }
+.afield:focus { outline:none; border-color:var(--gold); }
+.aerr { color:var(--pink); font-size:.78em; min-height:16px; margin-bottom:8px; }
+.alink { color:var(--cyan); font-size:.78em; cursor:pointer; text-decoration:underline; display:inline-block; margin-top:10px; }
+.aguest { margin-top:12px; width:100%; background:none; border:1px dashed var(--line); color:var(--mut); padding:9px; border-radius:10px; cursor:pointer; font-size:.8em; }
+.aguest:hover { color:#fff; border-color:var(--mut); }
+@media(max-width:700px){
+  .hdr h1 { font-size:.95em; }
+  .flashcard { font-size:1.05em; min-height:220px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hdr">
+    <div>
+      <h1>🎮 Study Buddy <span>| Cognizant L1 — Network Engineer</span></h1>
+      <div class="sub">Sep 16, 3:00 PM · Routing &amp; Switching focus · PM Networking curriculum</div>
+    </div>
+    <div class="stats">
+      <div class="stat cd"><div class="v" id="cd">—</div><div class="l">to Interview</div></div>
+      <div class="stat"><div class="v" id="xpV">0</div><div class="l">XP</div></div>
+      <div class="stat"><div class="v" id="streakV">0🔥</div><div class="l">Streak</div></div>
+      <div class="stat"><div class="v" id="rankV">🌱</div><div class="l" id="rankL">Noob</div></div>
+      <div class="ring">
+        <svg width="64" height="64"><circle cx="32" cy="32" r="27" fill="none" stroke="#1a1a2e" stroke-width="7"/><circle id="ringArc" cx="32" cy="32" r="27" fill="none" stroke="#00d2ff" stroke-width="7" stroke-linecap="round" stroke-dasharray="169.6" stroke-dashoffset="169.6"/></svg>
+        <div class="pct" id="readyV">0%</div>
+      </div>
+      <button class="iconbtn" id="sndBtn" title="Toggle sound" onclick="toggleSound()">🔊</button>
+      <button class="iconbtn" title="Export progress" onclick="exportProgress()">💾</button>
+      <button class="iconbtn" id="userBtn" title="Sign in to sync progress" onclick="userBtnClick()">🔐<span id="syncDot"></span></button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="watch">📺 Watch & Learn</div>
+    <div class="tab" data-tab="quiz">⚡ Quiz Arena</div>
+    <div class="tab" data-tab="flash">🃏 Flashcards <span class="dot" id="flashDot"></span></div>
+    <div class="tab" data-tab="sim">🎤 Interview Sim</div>
+    <div class="tab" data-tab="ready">📊 Readiness</div>
+    <div class="tab" data-tab="ach">🏅 Achievements</div>
+  </div>
+
+  <div class="panel active" id="panel-watch">
+    <div class="mission" id="missionBar"></div>
+    <div id="bossCardHolder"></div>
+    <div class="quest-bar" id="questBar"></div>
+    <div class="precheck-bar" id="precheckBar"></div>
+    <div class="watch-layout">
+      <div>
+        <select id="videoSelect"></select>
+        <div class="al-toggle">
+          <div class="al-switch" id="alSwitch" onclick="toggleAL()"></div>
+          <label onclick="toggleAL()">🎧 Active Listening — quiz every 30s</label>
+          <span class="al-next-in" id="alNextIn"></span>
+        </div>
+        <div class="video-frame"><div id="ytPlayer"></div></div>
+        <div class="vid-title" id="vidTitle"></div>
+        <div class="vid-meta" id="vidMeta"></div>
+        <img class="topo" id="topoImg" onclick="zoomImg(this.src)" alt="Topology diagram">
+      </div>
+      <div>
+        <input class="searchbox" id="qSearch" placeholder="🔍 Search all questions… (Enter to jump)" onkeydown="if(event.key==='Enter')doSearch()">
+        <h3 style="color:var(--gold);margin-bottom:4px;font-size:.95em">Questions in this video</h3>
+        <div class="muted" style="margin-bottom:8px">Click to reveal · Mark ✅ only when you could explain it OUT LOUD.</div>
+        <div id="videoQs"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-quiz">
+    <div class="quiz-box">
+      <div id="quizStart">
+        <h3 style="color:var(--gold);margin-bottom:4px">⚡ Quiz Arena</h3>
+        <p class="muted" style="margin-bottom:10px"><span id="qCount">—</span> questions · instant feedback · explanations · keyboard 1-4</p>
+        <div class="topic-filter" id="quizFilters"></div>
+        <div class="mode-cards">
+          <div class="mode-card" onclick="startQuiz()">
+            <h3>🎯 Classic 10</h3><p>10 random questions from selected topics. Untimed, with explanations. Best for learning.</p>
+          </div>
+          <div class="mode-card" onclick="startRapid()">
+            <h3>🔥 Rapid Fire</h3><p>60 seconds, unlimited questions, combo multiplier, +1.5s per correct. Speed-recall for interview morning.</p>
+          </div>
+          <div class="mode-card" onclick="startWeak()">
+            <h3>🎯 Weakness Hunter</h3><p>10 questions auto-targeting your lowest topics. Smart drilling.</p>
+          </div>
+        </div>
+      </div>
+      <div id="quizPlay" class="hidden">
+        <div class="progress-bar"><div class="progress-fill" id="quizProg"></div></div>
+        <div class="muted" id="quizCount" style="margin-bottom:6px"></div>
+        <div class="quiz-q" id="quizQ"></div>
+        <div id="quizOpts"></div>
+        <div class="expl" id="quizExpl"></div>
+        <button class="next-btn" id="quizNext" onclick="nextQuiz()">Next →</button>
+      </div>
+      <div id="quizDone" class="hidden result-hero">
+        <div class="score" id="quizScore"></div>
+        <div class="msg" id="quizMsg"></div>
+        <button class="btn primary" onclick="resetQuiz()">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-flash">
+    <div class="flash-wrap">
+      <div id="flashStart">
+        <h3 style="color:var(--gold)">🃏 Flashcards — Spaced Repetition</h3>
+        <p class="muted" style="margin:8px 0 14px">Hard cards return tomorrow; easy ones retire for up to 16 days. 10 min/day beats 2 hours of cramming. SPACE = flip · 1-4 = grade.</p>
+        <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+          <button class="btn primary" onclick="startFlash('due')">📋 Due today (<span id="dueCount">0</span>)</button>
+          <button class="btn primary" onclick="startFlash('weak')" style="background:linear-gradient(90deg,#a55eea,#e94560)">🎯 Weak topics</button>
+          <button class="btn primary" onclick="startFlash('all')" style="background:linear-gradient(90deg,#2ecc71,#00d2ff)">🎒 Cram all</button>
+        </div>
+        <div class="boxes" style="margin-top:18px"><span class="muted">Leitner boxes:</span>
+          <span class="box on"></span><span class="box"></span><span class="box"></span><span class="box"></span><span class="box"></span>
+        </div>
+        <div class="muted">Box 1 = daily · Box 5 = every 16 days</div>
+      </div>
+      <div id="flashPlay" class="hidden">
+        <div class="muted" id="flashCount"></div>
+        <div class="flashcard" id="flashCard" onclick="flipFlash()">
+          <div class="topic-tag" id="flashTopic"></div>
+          <div id="flashFace"></div>
+          <div class="hint" id="flashHint">click or SPACE to flip</div>
+        </div>
+        <div class="boxes" id="flashBoxes"></div>
+        <div class="flash-nav" id="flashGrades" style="visibility:hidden">
+          <button class="grade-btn g-again" onclick="gradeFlash(0)">1 Again</button>
+          <button class="grade-btn g-hard" onclick="gradeFlash(1)">2 Hard</button>
+          <button class="grade-btn g-good" onclick="gradeFlash(2)">3 Good</button>
+          <button class="grade-btn g-easy" onclick="gradeFlash(3)">4 Easy</button>
+        </div>
+        <div style="margin-top:12px"><button class="btn primary" onclick="endFlash()">Finish session (+XP)</button></div>
+      </div>
+      <div id="flashDone" class="hidden result-hero">
+        <div class="score" id="flashScore"></div>
+        <div class="msg" id="flashMsg"></div>
+        <button class="btn primary" onclick="document.getElementById('flashDone').classList.add('hidden');document.getElementById('flashStart').classList.remove('hidden')">Back</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-sim">
+    <div class="quiz-box center">
+      <div id="simStart">
+        <h3 style="color:var(--gold);margin-bottom:6px">🎤 Mock Interview — Cognizant L1</h3>
+        <p class="muted" style="margin-bottom:6px">10 open-ended questions · 60s think timer · SAY IT OUT LOUD · reveal model · self-grade honestly.</p>
+        <p class="muted" style="margin-bottom:14px">4-5 = mastered (+20 XP) · 1-3 = comes back tomorrow</p>
+        <button class="btn primary" onclick="startSim()">🎙️ Start Mock Interview</button>
+      </div>
+      <div id="simPlay" class="hidden">
+        <div class="muted" id="simCount"></div>
+        <div class="timer" id="simTimer">60</div>
+        <div class="sim-q" id="simQ"></div>
+        <button class="btn primary" id="simRevealBtn" onclick="revealSim()">Reveal Model Answer</button>
+        <div class="model-answer" id="simModel"></div>
+        <div class="grade-row" id="simGrades" style="display:none">
+          <button class="grade-btn g-again" onclick="gradeSim(1)">1 😵</button>
+          <button class="grade-btn g-hard" onclick="gradeSim(2)">2 😬</button>
+          <button class="grade-btn g-good" onclick="gradeSim(3)">3 🤔</button>
+          <button class="grade-btn" style="background:#7dbb8f;color:#06281a" onclick="gradeSim(4)">4 🙂</button>
+          <button class="grade-btn g-easy" onclick="gradeSim(5)">5 🏆</button>
+        </div>
+      </div>
+      <div id="simDone" class="hidden result-hero">
+        <div class="score" id="simScore"></div>
+        <div class="msg" id="simMsg"></div>
+        <button class="btn primary" onclick="resetSim()">New Mock Interview</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-ready">
+    <div class="ready-grid">
+      <div class="ready-card">
+        <div class="big-pct"><div class="pct" id="readyBig">0%</div><div class="lbl">Interview Readiness</div></div>
+        <div class="muted center">Quiz 30% · Watch 25% · Mock 25% · Flashcards 20%</div>
+        <div class="coach" id="coachBox"></div>
+      </div>
+      <div class="ready-card">
+        <h3>📚 Topic Mastery</h3>
+        <div id="topicBars"></div>
+      </div>
+      <div class="ready-card">
+        <h3>🔴 Weak Areas — attack these first</h3>
+        <ul class="weak-list" id="weakList"></ul>
+        <h3 style="margin-top:12px">🟢 Strong Areas</h3>
+        <ul class="strong-list" id="strongList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel" id="panel-ach">
+    <h3 style="color:var(--gold);margin-bottom:4px">🏅 Achievements</h3>
+    <p class="muted" style="margin-bottom:8px">Earned: <span id="achCount">0</span>/<span id="achTotal">0</span> · each grants +100 XP</p>
+    <div class="ach-grid" id="achGrid"></div>
+  </div>
+</div>
+
+<div class="authov" id="authov">
+  <div class="authcard">
+    <h2>🎮 Study Buddy</h2>
+    <div class="sub">Sign in to save your progress to the cloud and continue on any device — phone, laptop, anywhere. 📈</div>
+    <div id="authNoCfg" class="muted hidden" style="margin-bottom:10px">⚠️ Cloud sync isn't configured yet. You can still use the app in this browser (guest mode).</div>
+    <div id="authForm">
+      <div class="atabs">
+        <div class="atab on" id="atIn" onclick="setAuthMode('in')">Sign In</div>
+        <div class="atab" id="atUp" onclick="setAuthMode('up')">Sign Up</div>
+      </div>
+      <input class="afield" id="auName" placeholder="Your name (optional)" style="display:none" autocomplete="name">
+      <input class="afield" id="auEmail" type="email" placeholder="Email" autocomplete="email" onkeydown="if(event.key==='Enter')submitAuth()">
+      <input class="afield" id="auPass" type="password" placeholder="Password (min 6 characters)" autocomplete="current-password" onkeydown="if(event.key==='Enter')submitAuth()">
+      <div class="aerr" id="authErr"></div>
+      <button class="btn primary" id="authGo" style="width:100%" onclick="submitAuth()">Sign in</button>
+      <button class="aguest" onclick="guestGo()">👤 Continue as guest — progress stays in this browser only</button>
+      <a class="alink" onclick="resetPass()">Forgot password?</a>
+      <a class="alink" style="float:right" onclick="hideAuth()">Not now</a>
+    </div>
+  </div>
+</div>
+<div class="pcov" id="pcov">
+  <div class="pccard">
+    <div id="pcPlay">
+      <h2>🧠 Pre-Check Challenge — <span id="pcVidName"></span></h2>
+      <div class="pcq-count" id="pcCount"></div>
+      <div class="pc-question" id="pcQ"></div>
+      <div id="pcOpts"></div>
+      <div class="pc-feedback" id="pcFb"></div>
+      <div class="pc-actions">
+        <button class="pc-skip" onclick="endPrecheck(false)">Skip — just let me watch</button>
+        <button class="btn primary" id="pcNext" style="display:none" onclick="pcNext()">Next →</button>
+      </div>
+    </div>
+    <div id="pcDone" class="pc-results" style="display:none">
+      <div class="score" id="pcScore"></div>
+      <div class="verdict" id="pcVerdict"></div>
+      <div class="muted" id="pcSub"></div>
+      <div class="pc-watchplan" id="pcPlan"></div>
+      <div class="pc-actions" style="justify-content:center">
+        <button class="btn primary" onclick="document.getElementById('pcov').classList.remove('show')">Start watching 🎬</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="ov" id="chestov">
+  <div class="chestcard">
+    <div id="chestClosed">
+      <div class="chest-ico" id="chestIco" onclick="openChest()">🎁</div>
+      <div class="muted" style="margin-top:10px;font-size:1.05em;color:var(--gold)">Click to open… if you dare 🎲</div>
+    </div>
+    <div id="chestOpen" style="display:none">
+      <div class="chest-ico opened">🎉</div>
+      <div class="rarity" id="chestRarity"></div>
+      <div class="reward-line" id="chestReward"></div>
+      <div class="muted" id="chestExtra"></div>
+      <button class="btn primary" style="margin-top:16px" onclick="document.getElementById('chestov').classList.remove('show')">SWEET! 👌</button>
+    </div>
+  </div>
+</div>
+<div class="ov" id="bossov">
+  <div class="bosscard2">
+    <div id="bossIntro" style="text-align:center">
+      <div style="font-size:5em" id="bossIco">🐲</div>
+      <h2 style="color:#d7aefc;font-size:1.4em" id="bossName">SUBNETTING DRAGON</h2>
+      <div class="muted" id="bossDesc" style="margin:10px 0;line-height:1.6"></div>
+      <div class="muted" style="margin-bottom:14px">❤️❤️❤️ — 3 lives · 20s per question · no mercy</div>
+      <button class="boss-btn" onclick="startBossFight()">⚔️ FIGHT!</button>
+      <button class="pc-skip" style="margin-left:10px" onclick="document.getElementById('bossov').classList.remove('show')">Flee 🏃</button>
+    </div>
+    <div id="bossFight" style="display:none">
+      <div class="hearts" id="bossHearts">❤️❤️❤️</div>
+      <div class="muted" id="bossCount" style="text-align:center"></div>
+      <div class="bosstimer"><div class="fill" id="bossTimerFill" style="width:100%"></div></div>
+      <div class="boss-q" id="bossQ"></div>
+      <div id="bossOpts"></div>
+      <div class="pc-feedback" id="bossFb"></div>
+    </div>
+    <div id="bossEnd" class="bossvictory" style="display:none">
+      <div class="bico" id="bossEndIco">🏆</div>
+      <h2 id="bossEndTitle" style="font-size:1.3em"></h2>
+      <div class="reward-line" id="bossEndMsg"></div>
+      <button class="btn primary" style="margin-top:16px" onclick="document.getElementById('bossov').classList.remove('show')">Claim & close</button>
+    </div>
+  </div>
+</div>
+<div id="introov">
+  <div class="intro-frame"><iframe id="introFrame" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe></div>
+  <div class="intro-ui">
+    <div class="intro-title">🎉 THE HYPE RITUAL 🎉</div>
+    <div class="intro-sub" id="introSub">Watch the celebration — <b style="color:var(--gold)">your reward video unlocks after this.</b></div>
+    <div class="intro-bar"><div class="fill" id="introFill"></div></div>
+    <div class="intro-row">
+      <div class="intro-unlock" id="introStatus">🎬 Welcome! Starting in 90s — or skip to begin now</div>
+      <button id="introSkip" onclick="skipIntro()">⏭️ Skip Intro</button>
+    </div>
+  </div>
+</div>
+<div id="checkinov">
+  <div class="checkin-box">
+    <div class="checkin-badge">🧠 ACTIVE CHECK-IN · Video Paused</div>
+    <div class="checkin-q" id="checkinQ"></div>
+    <div class="checkin-opts" id="checkinOpts"></div>
+    <div class="checkin-expl" id="checkinExpl"></div>
+    <button class="checkin-resume" id="checkinResume" onclick="resumeAfterCheckin()">▶ Resume Video</button>
+    <div class="checkin-stats">
+      <span>Check-ins: <b id="checkinCount">0</b></span>
+      <span>Correct: <b id="checkinCorrect">0</b></span>
+      <span>Streak: <b id="checkinStreak">0</b></span>
+    </div>
+  </div>
+</div>
+<div id="toasts"></div>
+<canvas id="confetti"></canvas>
+<div id="flashfx"></div>
+<div id="rankup" onclick="this.classList.remove('show')">
+  <div class="big" id="rankupIco">🥷</div>
+  <div class="rt" id="rankupTitle">RANK UP!</div>
+  <div class="rs" id="rankupSub">tap to continue</div>
+</div>
+<div id="mascot" onclick="mascotTalk(true)" title="Your study pet">
+  <div class="mv" id="mascotV">🐣</div>
+  <div class="bubble" id="mascotB">Let's grind!</div>
+</div>
+<div id="zoomov" onclick="this.classList.remove('show')"><img id="zoomImgEl" src="" alt="zoom"></div>
+
+<script>
+const VIDEOS=[
+ {id:'D1',title:'Day 1 — LAN, DHCP (DORA), DNS, TCP Windowing, OSI',yt:'0DlOCy0OOzU',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['LAN definition — small geographic area, high speed, resource sharing','A **LAN (Local Area Network)** covers a home/office/building/campus. Devices communicate at high speed and share resources (printers, files). Contrast WAN = unlimited distance.','Fundamentals'],
+   ['What is DHCP + DORA','**DHCP** auto-assigns IP, mask, gateway, DNS. **DORA**: Discover (client broadcast) → Offer (server) → Request (client) → Ack (server). UDP 67(server)/68(client).','Fundamentals'],
+   ['What is DNS','Translates names (google.com) → IP addresses. **UDP 53** (TCP 53 for zone transfer).','Fundamentals'],
+   ['What is a TCP window','Flow control: number of bytes sender can transmit before needing an ACK. Receiver advertises window in each ACK. Loss → shrink; clean → grow. TCP only.','Fundamentals'],
+   ['OSI 7 layers','App, Presentation, Session, Transport, Network, Data-Link, Physical. Mnemonic: All People Seem To Need Data Processing.','Fundamentals']]},
+ {id:'D2',title:'Day 2 — TCP/IP Model, Layer Roles',yt:'QUxWQKgu8n4',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['TCP/IP model layers','Application (OSI 7-6-5), Transport (4), Internet (3), Network Access (2-1). Practical implementation model.','Fundamentals'],
+   ['Network layer role','Logical addressing (IP) + routing/path selection across networks.','Fundamentals'],
+   ['Data-Link layer responsibilities','Framing, MAC addressing, error detection (FCS), media access.','Fundamentals'],
+   ['Transport layer role','End-to-end delivery, segmentation, reliability, flow control, ports (sockets).','Fundamentals']]},
+ {id:'D3',title:'Day 3 — TCP vs UDP, 3-Way Handshake, Routing, Recursive Lookup',yt:'BkTzHS5C48Y',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['TCP vs UDP (10 differences)','Connection-oriented vs connectionless; reliable vs unreliable; sequencing; retransmission; flow control/windowing TCP only; 4-way termination TCP; slow vs fast; 20B vs 8B header; TCP: HTTP/HTTPS/SSH/Telnet, UDP: DNS/DHCP/TFTP.','Fundamentals'],
+   ['3-way handshake','SYN → SYN-ACK → ACK establishes the logical TCP connection between client & server.','Fundamentals'],
+   ['What is routing','Process of finding the best path source→destination across networks. L3, based on IP.','Routing'],
+   ['Static routing & why not for big networks','Manual routes: secure, no overhead — but doesn\'t scale; human error; manual reconfig on topology change.','Routing'],
+   ['Recursive lookup','Next-hop in routing table is NOT directly connected → router needs a second lookup to reach the next-hop itself. Fix: use exit interface or directly-connected next-hop.','Routing']]},
+ {id:'D4',title:'Day 4 — VLAN, CAT Cables, APIPA, OSPF States, Router ID',yt:'jTrbAEB2olc',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is a VLAN','Virtual LAN = separate broadcast domain on a switch. Default all ports = 1 broadcast domain; VLANs split it. Logical segmentation.','VLAN & Trunking'],
+   ['CAT cable categories','CAT5=100Mbps, CAT5e=1Gbps@100MHz, CAT6=1G (10G≤55m)@250MHz, CAT6a=10G@500MHz, CAT7/8 shielded 10-40G.','Fundamentals'],
+   ['APIPA','No DHCP server → Windows self-assigns from **169.254.0.0/16**. Seeing 169.254.x.x = DHCP broken!','Fundamentals'],
+   ['OSPF neighbor states (7)','Down → Init → 2-Way → ExStart → Exchange → Loading → **Full**.','OSPF'],
+   ['OSPF Router ID selection','1) Manual router-id → 2) Highest loopback IP → 3) Highest active physical IP. Needs `clear ip ospf process` after change.','OSPF']]},
+ {id:'D5',title:'Day 5 — Encapsulation, VPN, NAT Intro, AS, Flooding',yt:'OHbgG-s0HUY',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['Data encapsulation','Data → Segment(L4) → Packet(L3) → Frame(L2) → Bits(L1). Reverse = decapsulation.','Fundamentals'],
+   ['What is a VPN','Virtual Private Network: secure tunnel over public internet connecting private networks/users. Encrypts data in transit. Site-to-site & remote-access.','Security'],
+   ['NAT basics','Makes private↔public communication possible. Inside interface → translate SOURCE; outside → translate DESTINATION. Runs on edge router/firewall.','NAT'],
+   ['Autonomous System','Domain of networks under one administration with ONE routing policy, unique AS number. IGPs inside, BGP between.','Routing'],
+   ['Flooding','Unknown destination MAC → forward out ALL ports except ingress. Types: broadcast, unknown-unicast, multicast.','Switching']]},
+ {id:'D6',title:'Day 6 — EIGRP Deep Dive (Packets, Tables, FD/RD)',yt:'KfyWX9QRGrU',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is EIGRP','Cisco advanced distance-vector (hybrid). DUAL algorithm. AD 90. Bandwidth+delay metric. Unequal-cost load balancing.','EIGRP'],
+   ['EIGRP neighbor requirements','Same AS number, matching K-values, matching authentication; static neighbors use unicast hellos.','EIGRP'],
+   ['5 EIGRP packet types','Hello (discover/maintain, 5s/hold15), Update, Query, Reply, ACK.','EIGRP'],
+   ['3 EIGRP tables','Neighbor, Topology (all paths + successor + feasible successor), Routing (best only).','EIGRP'],
+   ['FD vs RD','Feasible Distance = MY total metric; Reported Distance = neighbor\'s metric. Successor=lowest FD. Feasible successor: RD < FD.','EIGRP']]},
+ {id:'D7',title:'Day 7 — OSPF Deep Dive (Router Types, Summarization)',yt:'MdWHpbTmeO8',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is OSPF','Open-standard link-state IGP. Cost=10⁸/BW, Dijkstra SPF, areas, AD 110, multicast 224.0.0.5/.','OSPF'],
+   ['OSPF router types','Internal (one area), Backbone (area 0), ABR (area 0 + other areas), ASBR (connects outside/redistributes).','OSPF'],
+   ['Change Router ID','`router-id x.x.x.x` under process + `clear ip ospf process`.','OSPF'],
+   ['OSPF characteristics','Link-state, cost metric, fast convergence, triggered updates, hierarchical areas, VLSM/CIDR, auth.','OSPF'],
+   ['OSPF summarization advantages','Fewer LSAs, smaller LSDB/tables, less CPU (fewer SPF runs), contains flaps. `area X range` on ABR.','OSPF']]},
+ {id:'D8',title:'Day 8 — Default Route, Switching, Switch Functions, Flooding Types',yt:'iJ5pKsq1K58',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['Default route','0.0.0.0/0 — used when no other route matches. Configured on edge toward ISP. Without it, unknowns are dropped.','Routing'],
+   ['What is switching','Forwarding data within the same LAN using MAC (hardware) addresses. L2.','Switching'],
+   ['Switch port types','Port forwarding on L2 info. Access (1 VLAN) vs Trunk (multiple VLANs).','VLAN & Trunking'],
+   ['3 functions of a switch','Address learning, forward/filter decision, loop avoidance (STP).','Switching'],
+   ['Flooding types','Broadcast (FF:FF:FF:FF:FF:FF), unknown unicast (not in CAM), multicast.','Switching']]},
+ {id:'D9',title:'Day 9 — CDP, VLAN Purpose, delete vlan.dat, ISL vs 802.1Q',yt:'WniOG3RD_44',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is CDP','Cisco-proprietary L2 discovery protocol; shares info about directly connected Cisco devices. Enabled by default. Open standard = LLDP.','Switching'],
+   ['Purpose of VLANs','Broadcast control (main), segmentation, security, cost/flexibility.','VLAN & Trunking'],
+   ['Delete VLAN info on a switch','`delete flash:vlan.dat` + `erase startup-config` + reload. erase startup alone is NOT enough!','VLAN & Trunking'],
+   ['Inter-VLAN routing','Router-on-a-stick (subinterfaces + 802.1Q) or L3 switch SVIs.','VLAN & Trunking'],
+   ['ISL vs 802.1Q','ISL: Cisco prop, encapsulates whole frame (30B). 802.1Q: IEEE standard, 4-byte tag inserted, native VLAN untagged.','VLAN & Trunking']]},
+ {id:'D10',title:'Day 10 — VTP (Modes, Requirements, Pruning) + VLAN Hopping',yt:'EkZQqHQFAdk',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is VTP','Cisco protocol syncing VLAN database across switches in same domain.','VLAN & Trunking'],
+   ['VTP modes','Server (default; create/modify/forward), Client (no changes, forwards), Transparent (local only, forwards ads).','VLAN & Trunking'],
+   ['VTP requirements','Trunk link between switches + matching domain (+ password if set) + same version.','VLAN & Trunking'],
+   ['VTP pruning','Stops VLAN updates/traffic down trunks that don\'t need them → saves bandwidth; dynamically re-adds.','VLAN & Trunking'],
+   ['VLAN hopping attack','Double-tagged frames exploit untagged native VLAN to jump into another VLAN. Mitigate: `vlan dot1q tag native`, change native from 1.','Security']]},
+ {id:'D11',title:'Day 11 — STP Core (Root Election, Path Cost, Scenario)',yt:'lLtIJn7ofJA',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['Why STP','Prevents L2 loops (broadcast storms, MAC instability, duplicate frames) by blocking redundant paths.','STP'],
+   ['How STP works','Elect root bridge (lowest BID) → others pick root ports → one designated port per link → rest block.','STP'],
+   ['STP path cost','10Mbps=100, 100Mbps=19, 1G=4, 10G=2. Lowest total cost → root port.','STP'],
+   ['Root bridge election','Lowest Bridge ID = Priority(2B, default 32768) + MAC(6B). Tie → lowest MAC. Force: `spanning-tree vlan X priority 4096`.','STP'],
+   ['3-switch scenario','Root ports receive superior BPDUs; on the non-root↔non-root link, lowest sender BID wins DP, other side blocks.','STP']]},
+ {id:'D12',title:'Day 12 — STP Features (Port States, Root Guard, PortFast, BPDU Guard)',yt:'N-sN_GJvTi8',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['DP vs RP','DP transmits superior BPDU (all root ports are DP). RP receives superior BPDU (best path to root, one per non-root switch).','STP'],
+   ['5 STP port states','Disabled → Blocking → Listening(15s) → Learning(15s) → Forwarding. ~50s total convergence.','STP'],
+   ['Root Guard','Protects root: unexpected superior BPDU → port goes root-inconsistent (blocked).','STP'],
+   ['PortFast','Skips Listening/Learning on access ports → instant forwarding for end devices. Never switch-to-switch!','STP'],
+   ['BPDU Guard','With PortFast: any BPDU received → port err-disabled. Stops rogue switches.','STP']]},
+ {id:'D13',title:'Day 13 — EtherChannel (Limits, Requirements, Config)',yt:'SPzQtLkQ4B0',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is EtherChannel','Bundles multiple physical links into one logical link: more bandwidth, redundancy, STP sees one port.','EtherChannel'],
+   ['Max links','16 total: 8 active + 8 standby (LACP). PAgP = 8.','EtherChannel'],
+   ['EtherChannel requirements','Same speed/duplex, same VLAN/trunk config + native + allowed, same STP settings, both ends consistent.','EtherChannel'],
+   ['3 ways to configure','Static `on`, PAgP (desirable/auto, Cisco), LACP (active/passive, IEEE 802.3ad).','EtherChannel'],
+   ['Config','`interface range fa0/1-4` → `channel-group 1 mode active` → config on `interface port-channel 1`. Verify: `show etherchannel summary`.','EtherChannel']]},
+ {id:'D14',title:'Day 14 — Port Security, Violations, SPAN, SNMP, Syslog',yt:'RJxRxvsP-Mk',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['Port security','Limits which/how many MACs per access port. `switchport port-security`, `maximum 1`, `mac-address sticky`.','Security'],
+   ['Violation modes','Protect: drop silently. Restrict: drop + log + counter. Shutdown (default): err-disable port.','Security'],
+   ['SPAN','Switched Port Analyzer = port mirroring: copy traffic from source port/VLAN → analyzer port (Wireshark). For troubleshooting.','Security'],
+   ['SNMP','Manages/monitors devices via NMS: Manager, Agent, MIB. UDP 161 (poll) / 162 (traps). v1/v2c community, v3 encrypted.','Services'],
+   ['Syslog','Sends device logs to central server. UDP 514. Severity 0-7. `logging host x.x.x.x` + `logging trap informational`.','Services']]},
+ {id:'D15',title:'Day 15 — ACLs (Types, Standard vs Extended, Implicit Deny)',yt:'wJNUynS07yg',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is an ACL','Ordered permit/deny rules filtering traffic on a router/switch interface. Top-down, first match wins.','ACL'],
+   ['ACL types','Numbered (std 1-99/1300-1999, ext 100-199/2000-2699) and Named (std/ext, editable).','ACL'],
+   ['Standard vs Extended','Std: source IP only, place near DESTINATION. Ext: src+dst+protocol+port, place near SOURCE.','ACL'],
+   ['ACL direction','in/out on interface; one ACL per interface per direction per protocol.','ACL'],
+   ['Implicit deny','Hidden `deny any` at end of every ACL — must have at least one permit!','ACL']]},
+ {id:'D16',title:'Day 16 — NAT (Static, Dynamic, PAT)',yt:'wSc0FSYwYPk',list:'PLmgyxPj-5jn5CiFwyJy7zrKurZLDjS17M',qs:[
+   ['What is NAT','Translates private↔public on edge router. Inside→src translation; outside→dst translation.','NAT'],
+   ['When NAT required','No public IPs, IPv4 scarcity, hide internal scheme, overlapping addresses after merger, ISP change.','NAT'],
+   ['NAT types','Static 1:1; Dynamic pool first-come; PAT (overload): many→1 public, distinguished by ports.','NAT'],
+   ['Static NAT config','`ip nat inside source static 192.168.1.10 15.1.1.1` + `ip nat inside`/`ip nat outside` on interfaces.','NAT'],
+   ['Dynamic NAT config','`ip nat pool NAME start end netmask x` + ACL selecting traffic + `ip nat inside source list 10 pool NAME`.','NAT']]},
+ {id:'S1',title:'Scenario 1 — Different networks, NO gateway — can they ping?',yt:'NAZGlMBrqAs',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S1.jpg',qs:[
+   ['PC1 & PC2 in different networks, no gateway configured. Ping?','**NO.** PC1 sees different subnet → needs gateway → none configured. Even the ARP broadcast dies: routers don\'t forward broadcasts.','Scenarios'],
+   ['How could it work WITHOUT gateways?','Proxy ARP: router answers ARP for remote IPs with its own MAC (`ip proxy-arp`). Covered in the Doubts video.','Scenarios']]},
+ {id:'S2',title:'Scenario 2 — Trunk discards tagged frame (allowed VLANs)',yt:'Y5JcaCgaDZk',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S2.jpg',qs:[
+   ['VLAN 20 exists on SW2 but trunk discards the tagged frame — why?','Allowed-VLAN list on the trunk excludes it. VLAN in database ≠ carried on trunk. Check `show interfaces trunk` → "Vlans allowed".','Scenarios'],
+   ['Native VLAN mismatch symptom','Traffic may flow but CDP spams NATIVE_VLAN_MISMATCH; untagged frames land in wrong VLAN.','Scenarios']]},
+ {id:'S3',title:'Scenario 3 ⭐ — Access link VLAN10↔20, same subnet',yt:'8I-mPfIDFlM',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S3.jpg',qs:[
+   ['Access link: SW1 port VLAN 10, SW2 port VLAN 20, PCs same subnet. Ping?','**YES!** Access ports send UNTAGGED → frame crosses as plain Ethernet → each switch treats it as ITS vlan\'s traffic. Broadcast domains merged. Same subnet → no routing needed.','Scenarios'],
+   ['Why is this bad design / why do we need trunks?','Works only by accident (same subnet). Multiple VLANs across a link need tags = trunk.','Scenarios']]},
+ {id:'S4',title:'Scenario 4 — watch & learn',yt:'BGD6GjkoPcg',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S4.jpg',qs:[
+   ['Watch the video and ask yourself: which layer fails?','Use the OSI bottom-up method: cable → interface → VLAN → IP → gateway → routing.','Scenarios']]},
+ {id:'S5',title:'Scenario 5 — watch & learn',yt:'mntLGO_u8g4',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S5.jpg',qs:[
+   ['Watch + predict the answer BEFORE the reveal','That prediction habit is exactly what interviewers test.','Scenarios']]},
+ {id:'S6',title:'Scenario 6 — watch & learn',yt:'GOJRDKwwNwQ',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S6.jpg',qs:[['Watch & fill your own answer','—','Scenarios']]},
+ {id:'S7',title:'Scenario 7 — watch & learn',yt:'VzWmeVwPPwo',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S7.jpg',qs:[['Watch & fill your own answer','—','Scenarios']]},
+ {id:'S8',title:'Scenario 8 — watch & learn',yt:'bMhocVOCGbI',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S8.jpg',qs:[['Watch & fill your own answer','—','Scenarios']]},
+ {id:'S9',title:'Scenario 9 — watch & learn',yt:'BKnzCqeHUJ8',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S9.jpg',qs:[['Watch & fill your own answer','—','Scenarios']]},
+ {id:'S1D',title:'Scenario 1 Doubts — Proxy ARP demo',yt:'-Z6zIY5dXSY',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S1D.jpg',qs:[
+   ['Proxy ARP','Router answers ARP request for a remote IP with its OWN MAC → host sends frames to router without knowing a gateway. `ip proxy-arp` (interface-level).','Scenarios']]},
+ {id:'S3D',title:'Scenario 3 Doubts — why no routing + rogue root switch',yt:'wp7qd_QhKHU',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/S3D.jpg',qs:[
+   ['Rogue switch with lower priority joins 100-switch network and becomes root. Fix?','**Root Guard** on access-facing ports: superior BPDU → root-inconsistent (blocked). Recover: shutdown/no shutdown. Also set root priority explicitly.','Scenarios']]},
+ {id:'SX',title:'Bonus Scenario — watch & learn',yt:'UpgGpwNyp4M',list:'PLmgyxPj-5jn4nFSy1qGaXPhsSLrdl53SV',topo:'thumbs/SX.jpg',qs:[['Watch & fill your own answer','—','Scenarios']]},
+];
+
+const QUIZ=[
+ ['Which sequence is the DHCP DORA process?',['Discover→Offer→Request→Acknowledge','Request→Offer→Discover→Ack','Offer→Discover→Ack→Request','Ack→Request→Offer→Discover'],0,'Discover (client bcast) → Offer (server) → Request (client) → Ack (server). UDP 67/68.','Fundamentals'],
+ ['DNS primarily uses which port/protocol?',['TCP 53','UDP 53','UDP 67','TCP 80'],1,'DNS queries use UDP 53. TCP 53 only for zone transfers & oversized responses.','Fundamentals'],
+ ['A PC shows IP 169.254.10.5. What does this mean?',['Static IP misconfigured','DHCP server unreachable (APIPA)','DNS failure','Duplicate IP'],1,'APIPA self-assignment in 169.254.0.0/16 = DHCP not working.','Fundamentals'],
+ ['Default TCP header size?',['8 bytes','16 bytes','20 bytes','64 bytes'],2,'TCP=20B default (up to 60 w/ options); UDP=8B.','Fundamentals'],
+ ['TCP 3-way handshake order?',['ACK, SYN, SYN-ACK','SYN, ACK, SYN-ACK','SYN, SYN-ACK, ACK','SYN-ACK, SYN, ACK'],2,'SYN → SYN-ACK → ACK establishes the connection.','Fundamentals'],
+ ['Windowing is a technique for:',['Encryption','Flow control','Error detection','Routing'],1,'Window = bytes before ACK required; advertised by receiver. TCP only.','Fundamentals'],
+ ['Which is NOT a private IPv4 range?',['10.0.0.0/8','172.16.0.0/12','192.168.0.0/16','169.254.0.0/16'],3,'169.254/16 is APIPA link-local, not RFC1918 private.','Fundamentals'],
+ ['Encapsulation order top-down:',['Bits→Frame→Packet→Segment','Data→Segment→Packet→Frame→Bits','Frame→Packet→Segment→Data','Data→Packet→Segment→Frame'],1,'L4 segment, L3 packet, L2 frame, L1 bits.','Fundamentals'],
+ ['CAT5e supports up to:',['100 Mbps','1 Gbps','10 Gbps','40 Gbps'],1,'CAT5e=1G@100MHz. CAT6=10G≤55m. CAT6a=10G full distance.','Fundamentals'],
+ ['Which OSI layer does a router operate at?',['Layer 2','Layer 3','Layer 4','Layer 1'],1,'Routers = L3 (IP routing). Switches = L2.','Fundamentals'],
+ ['An Autonomous System (AS) is:',['A single switch stack','A domain with one routing policy under one admin','A VLAN group','A routing protocol'],1,'Unique AS number; IGPs inside, BGP between ASes.','Fundamentals'],
+ ['What is a VPN?',['Physical private link','Secure tunnel over a public network','A routing protocol','VLAN pairing mode'],1,'Encrypts site-to-site or remote-access traffic over the internet.','Fundamentals'],
+ ['The three functions of a switch are:',['Routing, switching, bridging','Learning, forwarding/filtering, loop avoidance','NAT, DHCP, DNS','Encrypt, tunnel, forward'],1,'Address learning, forward/filter decision, loop avoidance (STP).','Switching'],
+ ['A switch floods a frame when destination MAC is:',['Broadcast','Unknown (not in CAM)','Multicast','All of these'],3,'All three trigger flooding (except ingress port).','Switching'],
+ ['CDP is:',['Open-standard L2 discovery','Cisco-proprietary L2 discovery','A routing protocol','L3 management'],1,'CDP=Cisco proprietary, enabled by default. LLDP=open standard.','Switching'],
+ ['Main purpose of a VLAN?',['Increase speed','Divide broadcast domain','Encrypt traffic','Assign IPs'],1,'Broadcast control is the #1 purpose; also segmentation & security.','VLAN & Trunking'],
+ ['Native VLAN on an 802.1Q trunk:',['Gets 4-byte tag','Goes untagged','Is always VLAN 100','Cannot exist'],1,'Native VLAN frames cross untagged — the basis of VLAN-hopping attacks.','VLAN & Trunking'],
+ ['Which command deletes the VLAN database?',['erase startup-config','delete flash:vlan.dat','clear vlan all','reload vlan'],1,'VLANs live in vlan.dat — must delete BOTH vlan.dat and startup-config for full reset.','VLAN & Trunking'],
+ ['VTP client mode can:',['Create VLANs','Modify VLANs','Neither create/modify — only sync & forward','Delete VLANs'],2,'Client syncs database & forwards advertisements but no local changes.','VLAN & Trunking'],
+ ['VTP requires (two main things):',['Access link + same password','Trunk link + matching domain name','Same IP + same VLAN 1','L3 connectivity + OSPF'],1,'Trunk between switches + domain match (password if set).','VLAN & Trunking'],
+ ['VLAN hopping is best mitigated by:',['Disabling CDP','Tagging the native VLAN','Using ISL everywhere','Enabling PortFast'],1,'`vlan dot1q tag native` + don\'t use native VLAN for data.','VLAN & Trunking'],
+ ['802.1Q vs ISL — key difference?',['ISL is the IEEE standard','802.1Q inserts 4-byte tag; ISL fully encapsulates','Same thing, different names','ISL supports more VLANs only'],1,'802.1Q=IEEE, 4B tag, native untagged. ISL=Cisco, 30B encapsulation.','VLAN & Trunking'],
+ ['Root bridge is elected by:',['Highest Bridge ID','Lowest Bridge ID','Fastest ports','Most VLANs'],1,'Lowest BID = priority(default 32768) + MAC wins.','STP'],
+ ['STP cost of a 100 Mbps link (802.1D)?',['4','19','100','2'],1,'10M=100, 100M=19, 1G=4, 10G=2.','STP'],
+ ['PortFast should be enabled on:',['Trunk ports','Access ports to end devices','Root ports','Uplinks'],1,'Skips Listening/Learning for instant forwarding. Switch-to-switch = loop risk!','STP'],
+ ['BPDU Guard does what?',['Blocks superior BPDUs','Err-disables a PortFast port receiving ANY BPDU','Speeds convergence','Protects the root'],1,'Rogue switch detection on access ports.','STP'],
+ ['A rogue switch with lower priority becomes root. Best prevention?',['BPDU Filter','Root Guard','UDLD','PortFast'],1,'Root Guard: superior BPDU on protected port → root-inconsistent.','STP'],
+ ['STP port states in order:',['Blocking→Learning→Listening→Forwarding','Blocking→Listening→Learning→Forwarding','Disabled→Learning→Listening→Forwarding','Listening→Blocking→Learning→Forwarding'],1,'Blocking → Listening(15s) → Learning(15s) → Forwarding ≈ 50s.','STP'],
+ ['Max physical links in one LACP EtherChannel?',['8','16 (8 active + 8 standby)','4','24'],1,'16 assigned: 8 active + 8 hot-standby.','EtherChannel'],
+ ['Which is the OPEN-STANDARD negotiation protocol?',['PAgP','LACP','CDP','VTP'],1,'LACP=IEEE 802.3ad. PAgP=Cisco proprietary.','EtherChannel'],
+ ['Which is NOT an EtherChannel requirement?',['Same speed/duplex','Same VLAN config','Same STP settings','Same device model'],3,'Models can differ; speed/duplex/VLAN/STP must match.','EtherChannel'],
+ ['Default port-security violation mode?',['Protect','Restrict','Shutdown','Log-only'],2,'Shutdown: port err-disabled. Protect=silent drop. Restrict=drop+log.','Security'],
+ ['Which violation mode drops traffic but does NOT err-disable and DOES log?',['Protect','Restrict','Shutdown','Passive'],1,'Restrict = drop + syslog + counter. Protect = silent drop.','Security'],
+ ['SPAN is used to:',['Aggregate links','Mirror traffic to an analyzer port','Block BPDUs','Assign IPs'],1,'Port mirroring for Wireshark troubleshooting.','Security'],
+ ['SNMP uses which ports?',['161/162 TCP','161/162 UDP','53 UDP','514 TCP'],1,'UDP 161 queries, UDP 162 traps.','Services'],
+ ['Syslog severity levels range:',['0-7, 0=Emergency','1-10','0-5','No levels'],0,'0 Emergency → 7 Debug.','Services'],
+ ['Default route is used when:',['Always first','No other route matches','Metric is highest','AD is 0'],1,'0.0.0.0/0 = last resort, typically toward ISP.','Routing'],
+ ['Administrative distance of OSPF?',['90','100','110','120'],2,'Connected 0, static 1, eBGP 20, EIGRP 90, OSPF 110, RIP 120.','Routing'],
+ ['AD of EIGRP (internal)?',['90','100','110','170'],0,'EIGRP internal=90, external=170.','Routing'],
+ ['Router picks between two routes to same prefix with different ADs — it uses:',['Metric first','Lowest AD','Highest AD','Bandwidth'],1,'Same prefix length → lowest AD wins.','Routing'],
+ ['Recursive lookup happens when:',['Route has exit interface','Next-hop is not directly connected','Two default routes exist','OSPF restarts'],1,'Router must look up HOW to reach the next-hop itself.','Routing'],
+ ['Order of route selection:',['AD → prefix length → metric','Longest prefix → lowest AD → lowest metric','Metric → AD → prefix','Random'],1,'Longest match first; then AD; then metric.','Routing'],
+ ['OSPF uses which algorithm?',['Bellman-Ford','DUAL','Dijkstra SPF','Spanning Tree'],2,'Link-state + Dijkstra against the LSDB.','OSPF'],
+ ['Correct OSPF neighbor state order:',['Down→Init→2-Way→ExStart→Exchange→Loading→Full','Down→2-Way→Init→Full','Init→ExStart→Exchange→Full','Full→Loading→Exchange'],0,'7 states ending in Full adjacency.','OSPF'],
+ ['Router ID priority:',['Highest IP, manual, loopback','Manual → highest loopback → highest active physical','Highest MAC','Random'],1,'Manual config always wins; loopbacks beat physical.','OSPF'],
+ ['Area 0 in OSPF is the:',['Stub area','Backbone area','Regular area','NSSA'],1,'All other areas must connect to backbone area 0.','OSPF'],
+ ['ASBR connects:',['Two areas','OSPF domain to outside (redistribution)','Two VLANs','Two trunks'],1,'ASBR injects external routes. ABR connects areas.','OSPF'],
+ ['OSPF summarization mainly reduces:',['Router cost','LSAs & LSDB size / SPF recalcs','Port count','MTU'],1,'`area X range` on ABR; `summary-address` on ASBR.','OSPF'],
+ ['EIGRP is classified as:',['Pure distance vector','Pure link-state','Advanced distance vector (hybrid)','Path vector'],2,'DV base with link-state features; DUAL algorithm.','EIGRP'],
+ ['Which is NOT an EIGRP packet type?',['Hello','Update','LSA','Query'],2,'LSA = OSPF. EIGRP: Hello, Update, Query, Reply, ACK.','EIGRP'],
+ ['Feasible Successor condition:',['Lowest metric','RD < FD','Highest bandwidth','Same AS only'],1,'Backup path where neighbor\'s Reported Distance < my Feasible Distance.','EIGRP'],
+ ['EIGRP maintains how many tables?',['1','2','3','4'],2,'Neighbor, Topology, Routing.','EIGRP'],
+ ['EIGRP neighborship REQUIRES:',['Same router-id','Same AS number','Same physical interface type','OSPF enabled'],1,'Matching AS + K-values (+auth if used).','EIGRP'],
+ ['PAT (NAT overload) distinguishes sessions by:',['MAC address','Port numbers','VLAN tag','TTL'],1,'Many privates → 1 public IP, unique source ports.','NAT'],
+ ['Traffic entering the NAT INSIDE interface gets its ___ translated:',['Destination IP','Source IP','Both','Neither'],1,'Inside→source translated to public. Outside→destination back to private.','NAT'],
+ ['Static NAT maps:',['Many→1','Pool-based','1 private ↔ 1 public (1:1)','Ports only'],2,'For servers reachable from internet.','NAT'],
+ ['Dynamic NAT pool has 5 publics and 6 users — what happens to #6?',['Load-balanced','Waits for a translation to free','Gets PAT automatically','Uses APIPA'],1,'First-come-first-served; 6th waits (that\'s why PAT exists).','NAT'],
+ ['Standard ACL filters on:',['Source IP only','Source + destination','Protocol + port','MAC address'],0,'Std=src only → place near destination. Ext=src+dst+port → near source.','ACL'],
+ ['Valid extended ACL number range?',['1-99','100-199','500-599','1000-1999'],1,'Std:1-99 & 1300-1999. Ext:100-199 & 2000-2699.','ACL'],
+ ['Every ACL ends with an implicit:',['permit any','deny any','log all','shutdown'],1,'Hidden deny any — always include a permit!','ACL'],
+ ['ACL processing order:',['Random','Top-down, first match wins','Bottom-up','Most specific last'],1,'First match wins → order matters.','ACL'],
+ ['Best placement for an EXTENDED ACL?',['Near destination','Near source','Middle router','Doesn\'t matter'],1,'Extended near source kills unwanted traffic early.','ACL'],
+ ['PC1(10.1.0.x) and PC2(192.168.1.x) separated by router, NO gateways. Ping works?',['Yes, router routes it','No — ARP broadcast dies at router','Yes with DNS','Only with NAT'],1,'Different subnet → need gateway; router won\'t forward the ARP broadcast.','Scenarios'],
+ ['Same setup — what single feature could make it work without gateways?',['DHCP','Proxy ARP','VTP','PortFast'],1,'Router answers ARP for remote IP with its own MAC.','Scenarios'],
+ ['Access link: SW1 port VLAN10, SW2 port VLAN20, PCs SAME subnet. Ping?',['No — different VLANs','Yes — untagged frames merge broadcast domains','Only via router','Only with trunk'],1,'Access ports send untagged → each switch treats frames as its own VLAN.','Scenarios'],
+ ['SW2 has VLAN 20 but trunk drops tagged VLAN-20 frames. Most likely cause?',['MAC table full','VLAN 20 not in trunk allowed list','STP blocking','CDP disabled'],1,'`show interfaces trunk` → allowed list must include 20.','Scenarios'],
+ ['Rogue switch (lower priority) plugged into access port becomes root. Fix?',['Raise real root priority','Root Guard on access ports','BPDU Filter','Disable STP'],1,'Root Guard blocks ports receiving superior BPDUs.','Scenarios'],
+];
+
+const SIM=[
+ ['Walk me through the DHCP DORA process.','Client broadcasts DHCPDISCOVER (src 0.0.0.0) → server offers (DHCPOFFER) → client requests that IP (DHCPREQUEST) → server confirms (DHCPACK). UDP 67/68. Mention lease renewal & that APIPA 169.254.x.x means DHCP failed.','Fundamentals'],
+ ['Explain the OSI model and where switching/routing happen.','7 layers. Switching=L2 (MAC). Routing=L3 (IP). Give the mnemonic and 1 example protocol per layer.','Fundamentals'],
+ ['TCP vs UDP — give 6 differences.','Connection-oriented vs connectionless; reliability/ACKs; sequencing; flow control/windowing; header 20B vs 8B; apps (HTTP/SSH vs DNS/DHCP/TFTP).','Fundamentals'],
+ ['What is a VLAN and why do we use it?','Logical broadcast domain on a switch. Broadcast control, segmentation, security, flexibility. Access vs trunk ports.','VLAN & Trunking'],
+ ['Explain how STP elects the root bridge and port roles.','Lowest Bridge ID (priority 32768 + MAC). Root ports = best path to root; designated ports send superior BPDUs; rest block. Mention costs (100M=19) & 50s convergence.','STP'],
+ ['What are PortFast, BPDU Guard, and Root Guard?','PortFast: instant forwarding on access ports. BPDU Guard: err-disable if BPDU seen (rogue switch). Root Guard: block port receiving superior BPDU (protect root).','STP'],
+ ['Explain OSPF neighbor states.','Down→Init→2-Way→ExStart→Exchange→Loading→Full. Know what happens in each (DBD exchange, LSR/LSU in Loading).','OSPF'],
+ ['How does OSPF choose its Router ID?','Manual > highest loopback > highest active physical. Needs clear ip ospf process. Why loopback? Never goes down.','OSPF'],
+ ['Explain EIGRP FD vs RD and successor vs feasible successor.','FD= my total metric. RD= neighbor\'s metric. Successor=lowest FD (in routing table). Feasible successor= backup with RD<FD — instant failover via DUAL.','EIGRP'],
+ ['What is NAT? Explain the 3 types.','Private↔public translation on edge. Static 1:1, Dynamic pool, PAT many→1 with ports. Inside=src translated; outside=dst translated.','NAT'],
+ ['Standard vs extended ACL — differences and placement rules.','Std: src only, near destination. Ext: src+dst+proto+port, near source. Implicit deny any. Top-down first match.','ACL'],
+ ['Explain port security and its violation modes.','Limit MACs per access port; sticky learning. Protect=silent drop; Restrict=drop+log; Shutdown(default)=err-disable + recovery commands.','Security'],
+ ['A user says "network is slow". Walk me through your troubleshooting.','Layered approach: check physical/interface errors → ping gateway → check VLAN/IP/gateway → broadcast storms (STP) → CPU → traceroute to isolate hop → check ACL/QoS. Show methodology, not guesswork.','Troubleshooting'],
+ ['Two departments on same switch must not see each other\'s broadcast traffic. What do you do?','Create VLANs per department, assign ports, inter-VLAN routing if they must communicate (SVI/ROAS), document.','Troubleshooting'],
+ ['What is VTP and why is it dangerous in production?','Syncs VLAN DB. Higher revision on a new switch can wipe/overwrite VLANs — that\'s why many run transparent/off. Pruning saves bandwidth.','VLAN & Trunking'],
+ ['Scenario: PCs in VLAN 10 can\'t reach VLAN 20. Troubleshoot.','Same subnet? Gateway/SVI up? Trunk allowed VLANs? VLANs active both switches? ACLs? checks: show vlan brief, show interfaces trunk, show ip route.','Troubleshooting'],
+ ['Explain what happens when you type a URL in a browser.','DNS resolve → ARP for gateway → TCP handshake → HTTP request → NAT at edge → routing hop-by-hop → server response. Full-stack answer impresses.','Fundamentals'],
+ ['Difference between collision domain and broadcast domain?','Collision: segment where frames can collide (each switch port = 1). Broadcast: where broadcasts propagate (routers break it; VLANs segment it).','Fundamentals'],
+ ['What is EtherChannel and why use it?','Bundle links into one logical: bandwidth, redundancy, STP sees 1 port (no blocking). LACP/PAgP/static; requirements same speed/duplex/VLAN.','EtherChannel'],
+ ['What is SNMP and syslog used for?','SNMP: NMS polls devices (UDP161) + traps (162), MIB/OIDs. Syslog: logs to central server (UDP514), severity 0-7. Both = monitoring/NOC bread & butter.','Services'],
+];
+
+const FLASH=[
+ ['DHCP ports','UDP 67 (server) / 68 (client)','Fundamentals'],
+ ['DORA','Discover → Offer → Request → Acknowledge','Fundamentals'],
+ ['DNS port','UDP 53 (TCP 53 for zone transfers)','Fundamentals'],
+ ['APIPA range','169.254.0.0/16 — means DHCP is broken','Fundamentals'],
+ ['TCP header size','20 bytes default (60 max with options)','Fundamentals'],
+ ['UDP header size','8 bytes','Fundamentals'],
+ ['3-way handshake','SYN → SYN-ACK → ACK','Fundamentals'],
+ ['TCP apps','HTTP, HTTPS, SSH, Telnet, FTP, SMTP','Fundamentals'],
+ ['UDP apps','DNS, DHCP, TFTP, SNMP, VoIP','Fundamentals'],
+ ['OSI mnemonic','All People Seem To Need Data Processing','Fundamentals'],
+ ['Encapsulation order','Data → Segment → Packet → Frame → Bits','Fundamentals'],
+ ['RFC1918 private ranges','10/8, 172.16/12, 192.168/16','Fundamentals'],
+ ['CAT5e speed','1 Gbps @ 100 MHz','Fundamentals'],
+ ['CAT6a speed','10 Gbps @ 500 MHz','Fundamentals'],
+ ['Windowing','Bytes sent before ACK required; TCP flow control','Fundamentals'],
+ ['Autonomous System','One admin domain, one routing policy, unique AS number','Fundamentals'],
+ ['VPN','Secure encrypted tunnel over public internet','Security'],
+ ['OSPF AD','110','OSPF'],
+ ['EIGRP internal AD','90 (external 170)','EIGRP'],
+ ['RIP AD','120','Routing'],
+ ['Static route AD','1 (connected = 0)','Routing'],
+ ['Route selection order','Longest prefix → lowest AD → lowest metric','Routing'],
+ ['OSPF algorithm','Dijkstra SPF against LSDB','OSPF'],
+ ['OSPF cost formula','10⁸ / bandwidth (bps)','OSPF'],
+ ['OSPF multicast','224.0.0.5 all, 224.0.0.6 DR/BDR','OSPF'],
+ ['OSPF neighbor states','Down Init 2-Way ExStart Exchange Loading Full','OSPF'],
+ ['Router ID priority','Manual > highest loopback > highest active physical','OSPF'],
+ ['ABR vs ASBR','ABR connects areas; ASBR connects to outside/redistributes','OSPF'],
+ ['Area 0','Backbone — all areas must touch it','OSPF'],
+ ['EIGRP algorithm','DUAL (Diffusing Update Algorithm)','EIGRP'],
+ ['EIGRP 5 packet types','Hello Update Query Reply ACK','EIGRP'],
+ ['EIGRP 3 tables','Neighbor, Topology, Routing','EIGRP'],
+ ['FD','Feasible Distance = MY total metric to destination','EIGRP'],
+ ['RD','Reported Distance = neighbor\'s metric to destination','EIGRP'],
+ ['Feasible successor rule','Backup where RD < FD (loop-free guarantee)','EIGRP'],
+ ['EIGRP hello/hold','5s hello / 15s hold (defaults, LAN)','EIGRP'],
+ ['Default route','0.0.0.0/0 — last resort toward ISP','Routing'],
+ ['NAT inside traffic','Source IP gets translated','NAT'],
+ ['NAT outside traffic','Destination IP gets translated','NAT'],
+ ['NAT types','Static 1:1, Dynamic pool, PAT overload','NAT'],
+ ['PAT key','Ports distinguish sessions (many→1 IP)','NAT'],
+ ['Standard ACL','Source IP only; place near DESTINATION','ACL'],
+ ['Extended ACL','Src+dst+proto+port; place near SOURCE','ACL'],
+ ['Standard ACL numbers','1-99, 1300-1999','ACL'],
+ ['Extended ACL numbers','100-199, 2000-2699','ACL'],
+ ['Implicit deny','Every ACL ends in hidden deny any','ACL'],
+ ['STP purpose','Prevent L2 loops by blocking redundant paths','STP'],
+ ['Bridge ID','Priority (2B, default 32768) + MAC (6B) — lowest wins root','STP'],
+ ['STP 100M cost','19 (10M=100, 1G=4, 10G=2)','STP'],
+ ['STP port states','Blocking Listening Learning Forwarding (+Disabled)','STP'],
+ ['STP convergence','~50s (20 max-age + 15 + 15)','STP'],
+ ['PortFast','Instant forwarding on access ports; never switch-to-switch','STP'],
+ ['BPDU Guard','Err-disable PortFast port if ANY BPDU seen','STP'],
+ ['Root Guard','Block port receiving superior BPDU (root-inconsistent)','STP'],
+ ['DP vs RP','DP sends superior BPDU; RP receives it (toward root)','STP'],
+ ['RSTP convergence','~6 seconds (proposal/agreement)','STP'],
+ ['EtherChannel max','16 links: 8 active + 8 standby (LACP)','EtherChannel'],
+ ['LACP vs PAgP','LACP = IEEE open standard; PAgP = Cisco','EtherChannel'],
+ ['LACP modes','Active/passive (at least one active)','EtherChannel'],
+ ['VLAN main purpose','Divide broadcast domain','VLAN & Trunking'],
+ ['Access port','Carries ONE VLAN, untagged','VLAN & Trunking'],
+ ['Trunk port','Carries multiple VLANs, 802.1Q tagged','VLAN & Trunking'],
+ ['Native VLAN','Untagged on trunk; default VLAN 1 — change it!','VLAN & Trunking'],
+ ['802.1Q tag size','4 bytes inserted into frame','VLAN & Trunking'],
+ ['VLAN database file','flash:vlan.dat — delete + erase startup for full reset','VLAN & Trunking'],
+ ['VTP modes','Server (default), Client, Transparent','VLAN & Trunking'],
+ ['VTP requirements','Trunk link + matching domain (+password)','VLAN & Trunking'],
+ ['VTP danger','Higher revision number overwrites VLAN DB','VLAN & Trunking'],
+ ['Inter-VLAN routing','Router-on-a-stick (subinterfaces) or L3 SVI','VLAN & Trunking'],
+ ['Switch 3 functions','Learning, forwarding/filtering, loop avoidance','Switching'],
+ ['Flooding triggers','Broadcast, unknown unicast, multicast','Switching'],
+ ['CDP','Cisco L2 discovery, enabled by default; LLDP = open','Switching'],
+ ['Port security violation default','Shutdown (err-disable)','Security'],
+ ['Restrict vs Protect','Restrict logs + counts; Protect silent','Security'],
+ ['SPAN','Port mirroring to analyzer (Wireshark)','Security'],
+ ['SNMP ports','UDP 161 poll / 162 trap','Services'],
+ ['Syslog port','UDP 514; severity 0-7','Services'],
+ ['VLAN hopping fix','Tag native VLAN + don\'t use VLAN 1 for data','Security'],
+ ['Scenario: no gateway + different subnets','Fails — ARP broadcast dies at router','Scenarios'],
+ ['Proxy ARP','Router answers ARP for remote IP with own MAC','Scenarios'],
+ ['Scenario: access link VLAN10↔20 same subnet','WORKS — untagged frames merge broadcast domains','Scenarios'],
+ ['Trunk drops tag for existing VLAN','Not in trunk allowed list','Scenarios'],
+ ['Recursive lookup','Next-hop not directly connected → extra lookup','Routing'],
+];
+
+// ================= CLOUD SYNC CONFIG (Firebase) =================
+// Multi-user progress sync. Setup (5 min):
+//  1) console.firebase.google.com → Add project → add a Web app → copy the config below
+//  2) Build → Authentication → Get started → enable Email/Password
+//  3) Build → Firestore Database → Create database (production mode)
+//  4) Firestore → Rules → paste:
+//       rules_version='2';
+//       service cloud.firestore{ match /databases/{d}/documents {
+//         match /users/{uid}{ allow read,write: if request.auth!=null && request.auth.uid==uid; } } }
+//  5) Authentication → Settings → Authorized domains → add the hosting domain
+// Leave apiKey as PASTE_ME to run in guest-only (localStorage) mode.
+const FIREBASE_CONFIG={
+  apiKey:"PASTE_ME", authDomain:"PASTE_ME", projectId:"PASTE_ME",
+  storageBucket:"PASTE_ME", messagingSenderId:"PASTE_ME", appId:"PASTE_ME"
+};
+const FB_READY=FIREBASE_CONFIG.apiKey!=='PASTE_ME';
+let auth=null, db=null, currentUser=null;
+if(FB_READY){
+  (async()=>{
+    try{
+      for(const m of ['app','auth','firestore']){
+        await new Promise((res,rej)=>{
+          const s=document.createElement('script');
+          s.src='https://www.gstatic.com/firebasejs/10.12.2/firebase-'+m+'-compat.js';
+          s.onload=res; s.onerror=()=>rej(new Error('failed to load '+m));
+          document.head.appendChild(s);
+        });
+      }
+      firebase.initializeApp(FIREBASE_CONFIG);
+      auth=firebase.auth(); db=firebase.firestore();
+      auth.onAuthStateChanged(onAuth);
+    }catch(e){ console.warn('Firebase unavailable:',e.message); }
+  })();
+}
+
+// ================= STATE =================
+const KEY='cognizant_buddy2';
+let S=JSON.parse(localStorage.getItem(KEY)||'null')||{
+  xp:0, lastDay:'', streak:0, sound:true,
+  quiz:{}, att:0, cor:0,
+  watched:{}, understood:{},
+  sim:{}, simHist:[],
+  flash:{}, flashReviewed:0,
+  mission:{day:'', items:{}},
+  ach:[], playpos:{}, precheck:{}, chests:{}, bosses:{}, shields:0
+};
+// one-time migration of v1 progress (cognizant_buddy1 -> cognizant_buddy2)
+try{
+  if(!localStorage.getItem(KEY+'_migrated')){
+    const v1=JSON.parse(localStorage.getItem('cognizant_buddy1')||'null');
+    if(v1){
+      S.xp+=v1.xp||0;
+      S.streak=Math.max(S.streak,v1.streak||0);
+      S.lastDay=v1.lastDay||S.lastDay;
+      Object.assign(S.watched,v1.watched||{});
+      Object.assign(S.understood,v1.understood||{});
+    }
+    localStorage.setItem(KEY+'_migrated','1');
+  }
+}catch(e){}
+function save(){ S.updatedAt=Date.now(); localStorage.setItem(KEY,JSON.stringify(S)); renderStats(); checkAch(); checkExtraAch(); scheduleSync(); }
+function today(){ return new Date().toDateString(); }
+
+// SOUND
+let AC=null;
+function beep(freq,dur,type,vol){
+  if(!S.sound) return;
+  try{
+    AC=AC||new (window.AudioContext||window.webkitAudioContext)();
+    const o=AC.createOscillator(), g=AC.createGain();
+    o.type=type||'sine'; o.frequency.value=freq;
+    g.gain.value=vol||.08;
+    o.connect(g); g.connect(AC.destination);
+    o.start();
+    g.gain.exponentialRampToValueAtTime(.001, AC.currentTime+(dur||.15));
+    o.stop(AC.currentTime+(dur||.15)+.02);
+  }catch(e){}
+}
+const sndOK =()=>{beep(660,.12);setTimeout(()=>beep(880,.15),90);};
+const sndNO =()=>beep(180,.25,'sawtooth',.06);
+const sndLvl=()=>{[523,659,784,1046].forEach((f,i)=>setTimeout(()=>beep(f,.18),i*110));};
+const sndCard=()=>beep(440,.06,'triangle',.05);
+function toggleSound(){ S.sound=!S.sound; document.getElementById('sndBtn').textContent=S.sound?'🔊':'🔇'; save(); }
+
+// CONFETTI
+function confetti(){
+  const c=document.getElementById('confetti'), x=c.getContext('2d');
+  c.width=innerWidth; c.height=innerHeight;
+  const parts=[...Array(120)].map(()=>({
+    x:Math.random()*c.width, y:-20-Math.random()*100,
+    r:4+Math.random()*6, vy:2+Math.random()*4, vx:-1.5+Math.random()*3,
+    col:['#e94560','#f5a623','#00d2ff','#2ecc71','#a55eea'][Math.floor(Math.random()*5)],
+    rot:Math.random()*6
+  }));
+  let t=0;
+  (function draw(){
+    x.clearRect(0,0,c.width,c.height); t++;
+    parts.forEach(p=>{
+      p.y+=p.vy; p.x+=p.vx; p.rot+=.1;
+      x.save(); x.translate(p.x,p.y); x.rotate(p.rot);
+      x.fillStyle=p.col; x.fillRect(-p.r/2,-p.r/2,p.r,p.r); x.restore();
+    });
+    if(t<160) requestAnimationFrame(draw); else x.clearRect(0,0,c.width,c.height);
+  })();
+}
+function toast(msg){
+  const d=document.createElement('div');
+  d.className='toast'; d.innerHTML=msg;
+  document.getElementById('toasts').appendChild(d);
+  setTimeout(()=>d.remove(),4200);
+}
+
+// ================= FUN ENGINE =================
+// XP shower particles
+function xpShower(n,origin){
+  try{
+    const o=origin||document.getElementById('xpV').getBoundingClientRect();
+    const cx=o.left+o.width/2, cy=o.top+o.height/2;
+    const bits=Math.min(10,Math.max(3,Math.round(n/4)));
+    for(let i=0;i<bits;i++){
+      const p=document.createElement('div');
+      p.className='xpp';
+      p.textContent=['+','✦','⚡','★'][i%4]+(i===0?n:'');
+      p.style.left=cx+'px'; p.style.top=cy+'px';
+      p.style.color=['#f5a623','#00d2ff','#2ecc71','#e94560','#a55eea'][i%5];
+      p.style.setProperty('--dx',(Math.random()*140-70).toFixed(0)+'px');
+      p.style.animationDelay=(i*40)+'ms';
+      document.body.appendChild(p);
+      setTimeout(()=>p.remove(),1300+i*40);
+    }
+  }catch(e){}
+}
+// screen flash
+function screenFx(good){
+  const f=document.getElementById('flashfx');
+  f.style.background=good?'radial-gradient(circle at 50% 50%,rgba(46,204,113,.5),transparent 70%)':'radial-gradient(circle at 50% 50%,rgba(233,69,96,.5),transparent 70%)';
+  f.className=''; void f.offsetWidth; f.className=good?'good':'bad';
+}
+// floating combo text
+function comboFloat(txt,x,y,big){
+  const c=document.createElement('div');
+  c.id='comboFloat';
+  c.textContent=txt;
+  c.style.left=(x||innerWidth/2)+'px'; c.style.top=(y||innerHeight/2)+'px';
+  if(big) c.style.fontSize='3em';
+  document.body.appendChild(c);
+  setTimeout(()=>c.remove(),850);
+}
+// ----- MASCOT -----
+const MASCOT_STAGES=[[0,'🐣'],[150,'🐥'],[400,'🐤'],[900,'🦅']];
+const MASCOT_LINES={
+  idle:['Ready when you are! 💪','Quiz me! I dare you 😤','My antennas are itching… 📡','Pro tip: say answers OUT LOUD 🗣️','Feed me XP and I evolve 🔋','Less studying bored, more scoring board! ♟️'],
+  correct:['NICE! You\'re on fire 🔥','That\'s the stuff! 😎','Interviewer: *impressed* 🎯','BGP would be proud 🛰️','Clean. Certified. ✅','You + subnetting = ❤️'],
+  wrong:['Oof. But now you\'ll NEVER forget it 🧠','That one traps everyone! 😤','Miss today = master tomorrow 💪','Shake it off — next one\'s yours!','Even OSPF takes time to converge ⏳'],
+  xp:['nom nom XP 🍕','I can feel myself evolving! 🔋','MORE! *opens mouth* 😮','*grows stronger* 💪'],
+  streak:['STREAK PROTECTED 🛡️🔥','Consistency is your superpower ⚡','Day by day — boss slayer loading…'],
+  mission:['Mission crushed! +200 XP 🏆','Today\'s quest: COMPLETE ⚔️'],
+  quizDone:['Arena conquered! 🏟️','You survived the quiz arena! 💪'],
+};
+function mascotStage(){ let s=MASCOT_STAGES[0]; for(const x of MASCOT_STAGES) if(S.xp>=x[0]) s=x; return s[1]; }
+function mascotSay(msg,excite){
+  const b=document.getElementById('mascotB'); const m=document.getElementById('mascot');
+  if(!b||!m) return;
+  b.innerHTML=msg;
+  if(excite){ m.classList.add('excited'); setTimeout(()=>m.classList.remove('excited'),1400); }
+}
+function mascotTalk(force){
+  const pool=[...MASCOT_LINES.idle];
+  if(S.streak>=2) pool.push(...MASCOT_LINES.streak);
+  const line=pool[Math.floor(Math.random()*pool.length)];
+  mascotSay(force?line:(MASCOT_LINES.idle[Math.floor(Math.random()*MASCOT_LINES.idle.length)]),true);
+}
+let mascotTimer=setInterval(()=>{ if(Math.random()<.5) mascotTalk(); },45000);
+// ----- RANK UP TAKEOVER -----
+function rankName(){ let r=RANKS[0]; for(const x of RANKS) if(S.xp>=x[0]) r=x; return r; }
+function checkRankUp(prevRankIdx){
+  const now=rankName();
+  const idx=RANKS.findIndex(x=>x[0]===now[0]);
+  if(idx>prevRankIdx){
+    document.getElementById('rankupIco').textContent=now[1];
+    document.getElementById('rankupTitle').textContent='RANK UP — '+now[2]+'!';
+    const ru=document.getElementById('rankup');
+    ru.classList.add('show');
+    setTimeout(()=>ru.classList.remove('show'),3600);
+    sndLvl(); confetti();
+    mascotSay('YOU EVOLVED ME TOO?! 🎉 I\'m soo proud!',true);
+  }
+}
+// ----- STREAK FLAME -----
+function updateStreakFlame(){
+  const el=document.querySelector('.stat .v#streakV');
+  if(!el) return;
+  const box=el.closest('.stat');
+  if(S.streak>=2) box.classList.add('streaklit'); else box.classList.remove('streaklit');
+}
+// ----- JUICE HOOKS -----
+function juiceCorrect(originEl){ screenFx(true); sndOK(); if(originEl) xpShower(15,originEl.getBoundingClientRect()); }
+function juiceWrong(originEl){ screenFx(false); sndNO(); }
+function updateMascotIcon(){
+  const v=document.getElementById('mascotV');
+  if(v) v.textContent=mascotStage();
+}
+
+// ACHIEVEMENTS
+const ACH=[
+ ['first','🩸','First Blood','Answer your first quiz question'],
+ ['perfect','💯','Perfect 10','Score 10/10 in Classic Quiz'],
+ ['rapid','🔥','Speed Demon','15+ points in Rapid Fire'],
+ ['xp500','⚡','Charged Up','500 XP'],
+ ['xp1500','🛰️','Router Ranger','1500 XP'],
+ ['xp4000','🏆','Boss Slayer','4000 XP'],
+ ['streak3','📅','Habit Formed','3-day streak'],
+ ['cards50','🃏','Card Shark','50 flashcards reviewed'],
+ ['mock45','🎤','Silver Tongue','Mock avg ≥ 4.5'],
+ ['ready75','🎯','Interview Ready','75% readiness'],
+ ['allsanity','🎬','Completionist','Watch all 28 videos'],
+ ['quiz100','📚','Marathon','100 quiz questions answered'],
+];
+function hasAch(id){ return S.ach.includes(id); }
+function grantAch(id){
+  if(hasAch(id)) return;
+  const a=ACH.find(x=>x[0]===id)||ACH_EXTRA.find(x=>x[0]===id); if(!a) return;
+  S.ach.push(id);
+  toast(`🏅 <b>Achievement!</b><br>${a[1]} ${a[2]} (+100 XP)`);
+  sndLvl(); S.xp+=100;
+  renderAch();
+}
+const ACH_EXTRA=[
+ ['zone1','🌐','Zone Slayer','Clear Zone 1 + beat the Fundamentals Dragon'],
+ ['zone2','🔀','Loop Breaker','Clear Zone 2 + beat the Loop Warlock'],
+ ['zone3','🛰️','Route Master','Clear Zone 3 + beat the Routing Phantom'],
+ ['zone4','👑','Overlord Slayer','Clear Zone 4 + beat the Interview Overlord'],
+ ['legend','💎','Legend Seeker','Open a LEGENDARY chest'],
+];
+function checkExtraAch(){
+  ACH_EXTRA.forEach(a=>{
+    const zoneIdx=['zone1','zone2','zone3','zone4'].indexOf(a[0]);
+    if(zoneIdx>-1){
+      if(zoneState(ZONES[zoneIdx]).done && S.bosses && S.bosses[zoneIdx]) grantAch(a[0]);
+    }
+  });
+}
+function checkAch(){
+  if(S.att>=1) grantAch('first');
+  if(S.att>=100) grantAch('quiz100');
+  if(S.xp>=500) grantAch('xp500');
+  if(S.xp>=1500) grantAch('xp1500');
+  if(S.xp>=4000) grantAch('xp4000');
+  if(S.streak>=3) grantAch('streak3');
+  if(S.flashReviewed>=50) grantAch('cards50');
+  if(Object.keys(S.watched).filter(k=>S.watched[k]).length>=VIDEOS.length) grantAch('allsanity');
+  if(readiness()>=.75) grantAch('ready75');
+}
+function renderAch(){
+  const c=document.getElementById('achCount'); if(!c) return;
+  c.textContent=S.ach.length;
+  document.getElementById('achTotal').textContent=ACH.length;
+  document.getElementById('achGrid').innerHTML=ACH.map(a=>`
+    <div class="ach ${hasAch(a[0])?'won':''}">
+      <div class="ico">${a[1]}</div><div class="nm">${a[2]}</div><div class="ds">${a[3]}</div>
+    </div>`).join('');
+}
+
+// XP / STREAK
+function checkStreak(){
+  const t=today();
+  if(S.lastDay===t) return;
+  const y=new Date(Date.now()-864e5).toDateString();
+  const gap2=new Date(Date.now()-2*864e5).toDateString();
+  if(S.lastDay===y){ S.streak=S.streak+1; }
+  else if(S.lastDay===gap2&&(S.shields||0)>0){
+    // missed exactly one day — a shield saves the streak
+    S.shields--;
+    S.streak=S.streak+1;
+    setTimeout(()=>{ toast('🛡️ <b>Streak Shield used!</b> Your streak survived the missed day. ('+S.shields+' left)'); },800);
+  }
+  else S.streak=1;
+  S.lastDay=t;
+}
+function addXP(n,originEl){
+  const prev=RANKS.findIndex(x=>x[0]<=S.xp);
+  checkStreak(); S.xp+=n;
+  if(n>=5){ xpShower(n,originEl); if(Math.random()<.35) mascotSay(MASCOT_LINES.xp[Math.floor(Math.random()*MASCOT_LINES.xp.length)],true); }
+  save();
+  checkRankUp(prev);
+  updateStreakFlame();
+  updateMascotIcon();
+}
+const RANKS=[[0,'🌱','Noob'],[300,'📟','Apprentice'],[800,'🔀','Switch Jockey'],[1500,'🛰️','Router Ranger'],[2500,'🥷','Network Ninja'],[4000,'🏆','Boss Slayer']];
+function renderStats(){
+  document.getElementById('xpV').textContent=S.xp;
+  document.getElementById('streakV').textContent=S.streak+'🔥';
+  let r=RANKS[0]; for(const x of RANKS) if(S.xp>=x[0]) r=x;
+  document.getElementById('rankV').textContent=r[1];
+  document.getElementById('rankL').textContent=r[2];
+  const rd=readiness();
+  document.getElementById('readyV').textContent=Math.round(rd*100)+'%';
+  document.getElementById('ringArc').style.strokeDashoffset=169.6*(1-rd);
+  const dc=document.getElementById('dueCount');
+  if(dc) dc.textContent=dueCards().length;
+  const fd=document.getElementById('flashDot');
+  if(fd) fd.classList.toggle('show', dueCards().length>0);
+}
+
+// READINESS
+const TOPICS=['Fundamentals','Switching','VLAN & Trunking','STP','EtherChannel','Security','Services','Routing','OSPF','EIGRP','NAT','ACL','Scenarios','Troubleshooting'];
+const TCOLORS={'Fundamentals':'#00d2ff','Switching':'#e94560','VLAN & Trunking':'#f5a623','STP':'#a55eea','EtherChannel':'#26de81','Security':'#fc5c65','Services':'#2bcbba','Routing':'#45aaf2','OSPF':'#fd9644','EIGRP':'#a3cb38','NAT':'#3867d6','ACL':'#e15f41','Scenarios':'#8854d0','Troubleshooting':'#f7b731'};
+function topicStat(t){
+  const q=S.quiz[t]||{att:0,cor:0}, sim=S.sim[t]||{att:0,sum:0};
+  let und=0,tot=0;
+  VIDEOS.forEach(v=>v.qs.forEach(q2=>{ if(q2[2]===t){tot++; if(S.understood[v.id+'::'+q2[0]])und++;} }));
+  let fbox=0,fn=0,fseen=0;
+  FLASH.forEach((f,i)=>{ if(f[2]===t){ fn++; const st=S.flash[i]; if(st){ fseen++; fbox+=(st.box-1)/4; } } });
+  const quizScore=q.att? q.cor/q.att : 0;
+  const simScore=sim.att? Math.min(1,(sim.sum/sim.att-1)/4) : 0;
+  const watchScore=tot? und/tot : 0;
+  const flashScore=fseen? fbox/fseen : 0;
+  let w=0,acc=0;
+  if(q.att){acc+=.3*quizScore;w+=.3;}
+  if(tot){acc+=.25*watchScore;w+=.25;}
+  if(sim.att){acc+=.25*simScore;w+=.25;}
+  if(fseen){acc+=.2*flashScore;w+=.2;}
+  return {score:w?acc/w:0, quiz:q, sim, und, tot};
+}
+function readiness(){
+  let acc=0;
+  TOPICS.forEach(t=>acc+=topicStat(t).score);
+  return acc/TOPICS.length;
+}
+
+// MISSION
+function missionItems(){
+  return [
+    '📺 Watch 1 new video',
+    '🃏 10 flashcards',
+    '⚡ 1 quiz run',
+    '🎤 Mock interview',
+  ];
+}
+function renderMission(){
+  const t=today();
+  if(S.mission.day!==t){ S.mission={day:t,items:{}}; }
+  const items=missionItems();
+  const doneCount=items.filter((_,i)=>S.mission.items[i]).length;
+  document.getElementById('missionBar').innerHTML=`
+    <div><span class="mtitle">🎯 Today's Mission</span> <span class="muted">(${doneCount}/${items.length}${doneCount===items.length?' — LEGEND! 🏆':''})</span></div>
+    <div class="mitems">${items.map((it,i)=>
+      `<div class="mitem ${S.mission.items[i]?'done':''}" onclick="toggleMission(${i})">${it}</div>`).join('')}
+    </div>`;
+}
+function toggleMission(i){
+  S.mission.items[i]=!S.mission.items[i];
+  if(S.mission.items[i]){
+    const items=missionItems();
+    if(items.filter((_,j)=>S.mission.items[j]).length===items.length){
+      addXP(200); toast('🎯 <b>Daily mission complete!</b> +200 XP'); confetti(); sndLvl();
+      mascotSay(MASCOT_LINES.mission[Math.floor(Math.random()*MASCOT_LINES.mission.length)],true);
+    } else { addXP(25); toast('✅ +25 XP'); }
+  }
+  save(); renderMission();
+}
+
+// ================= VIDEO PLAYER + TIMELINE JUMPS =================
+const Q_TIMES={"D1":[55,245,435,625,815],"D2":[43,228,414,599],"D3":[39,171,304,436,569],"D4":[35,154,274,393,513],"D5":[38,167,296,426,555],"D6":[33,147,260,374,488],"D7":[40,177,314,451,588],"D8":[46,203,360,517,674],"D9":[42,185,329,472,616],"D10":[73,322,572,822,1071],"D11":[62,276,490,703,917],"D12":[62,276,489,703,916],"D13":[23,104,184,265,346],"D14":[41,181,320,460,600],"D15":[47,207,367,528,688],"D16":[49,218,386,555,724],"S1":[10,96],"S2":[12,116],"S3":[31,294],"S4":[5],"S5":[5],"S6":[5],"S7":[5],"S8":[5],"S9":[5],"S1D":[5],"S3D":[5],"SX":[5]}; // per-video question start seconds
+function fmtTS(s){ s=Math.max(0,Math.round(s)); return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+// ================= YOUTUBE IFRAME PLAYER API =================
+let ytPlayer=null, ytReady=false, ytCurrentVideo=null;
+// Load the IFrame API once
+if(!window.YT){
+  const tag=document.createElement('script');
+  tag.src='https://www.youtube.com/iframe_api';
+  document.head.appendChild(tag);
+}
+window.onYouTubeIframeAPIReady=function(){ ytReady=true; };
+
+function embedSrc(vid,start){
+  const v=VIDEOS.find(x=>x.id===vid);
+  let src=`https://www.youtube.com/embed/${v.yt}?rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+  if(start) src+=`&start=${Math.max(0,Math.floor(start))}&autoplay=1`;
+  return src;
+}
+function setEmbed(vid,start){
+  const v=VIDEOS.find(x=>x.id===vid);
+  const holder=document.getElementById('ytPlayer');
+  // If API is ready, create a real YT.Player so we can pause/play/seek programmatically
+  if(ytReady && window.YT && YT.Player){
+    holder.innerHTML='<div id="ytPlayerInner"></div>';
+    ytPlayer=new YT.Player('ytPlayerInner',{
+      videoId:v.yt,
+      playerVars:{ rel:0, modestbranding:1, playsinline:1, enablejsapi:1,
+        start: start? Math.max(0,Math.floor(start)) : 0,
+        autoplay: start? 1 : 0 },
+      events:{
+        onReady: start ? (e)=>e.target.playVideo() : null,
+        onStateChange: onYTStateChange
+      }
+    });
+    ytCurrentVideo=vid;
+  } else {
+    // Fallback: raw iframe (if API not loaded yet)
+    holder.innerHTML=`<iframe style="position:absolute;top:0;left:0;width:100%;height:100%;border:none" src="${embedSrc(vid,start)}" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+  }
+}
+// ================= ACTIVE LISTENING CHECK-IN =================
+let alEnabled=false, alTimer=null, alLastCheck=0, alCheckinCount=0, alCheckinCorrect=0, alCheckinStreak=0;
+let alCurrentQ=null, alPausedAt=0;
+const AL_INTERVAL=30; // seconds between check-ins
+
+function toggleAL(){
+  alEnabled=!alEnabled;
+  document.getElementById('alSwitch').classList.toggle('on',alEnabled);
+  if(alEnabled){
+    alLastCheck=0; alCheckinCount=0; alCheckinCorrect=0; alCheckinStreak=0;
+    startALTimer();
+    toast('🎧 Active Listening ON — quiz every 30s of video');
+    sndCard();
+  } else {
+    stopALTimer();
+    document.getElementById('alNextIn').textContent='';
+    toast('🎧 Active Listening OFF');
+  }
+}
+function startALTimer(){
+  stopALTimer();
+  alTimer=setInterval(alTick, 1000);
+}
+function stopALTimer(){
+  if(alTimer){ clearInterval(alTimer); alTimer=null; }
+}
+function alTick(){
+  if(!alEnabled || !ytPlayer || !ytReady) return;
+  // Don't interfere with intro gate or other overlays
+  if(document.getElementById('introov').classList.contains('show')) return;
+  if(document.getElementById('checkinov').classList.contains('show')) return;
+  let state;
+  try { state=ytPlayer.getPlayerState(); } catch(e){ return; }
+  // YT.PlayerState.PLAYING = 1
+  if(state!==1) return;
+  let t;
+  try { t=ytPlayer.getCurrentTime(); } catch(e){ return; }
+  if(t - alLastCheck >= AL_INTERVAL){
+    alLastCheck=t;
+    triggerCheckin();
+  }
+  // Update countdown
+  const nextIn=Math.max(0, AL_INTERVAL - (t - alLastCheck));
+  document.getElementById('alNextIn').textContent='Next check-in: '+Math.ceil(nextIn)+'s';
+}
+function triggerCheckin(){
+  if(!curVid) return;
+  // Find which question segment we're in based on current playback time
+  let currentTime=0;
+  try { currentTime=ytPlayer.getCurrentTime(); } catch(e){}
+  const times=Q_TIMES[curVid.id]||[];
+  let segmentIdx=0;
+  for(let i=0;i<times.length;i++){
+    if(currentTime>=times[i]) segmentIdx=i;
+    else break;
+  }
+  // Get the topic of the current segment
+  const currentQ=curVid.qs[segmentIdx];
+  const currentTopic=currentQ? currentQ[2] : null;
+  // Build a question about what was just covered:
+  // 50% chance ask a generated recall question from the video's own content,
+  // 50% chance ask a QUIZ question matching the current segment's topic
+  let q=null;
+  if(Math.random()<0.5 && currentQ){
+    q=genRecallQ(currentQ, segmentIdx, currentTime, times);
+  }
+  if(!q){
+    // Fall back to QUIZ pool matching the current topic
+    let pool=currentTopic ? QUIZ.filter(qz=>qz[4]===currentTopic) : [];
+    if(pool.length===0){
+      const videoTopics=new Set(curVid.qs.map(qq=>qq[2]));
+      pool=QUIZ.filter(qz=>videoTopics.has(qz[4]));
+    }
+    if(pool.length===0) pool=QUIZ.slice();
+    do { q=pool[Math.floor(Math.random()*pool.length)]; }
+    while(alCurrentQ && pool.length>1 && q[0]===alCurrentQ[0]);
+  }
+  alCurrentQ=q;
+  // Pause the video
+  try { ytPlayer.pauseVideo(); } catch(e){}
+  alPausedAt=Date.now();
+  // Show overlay with context about what was just covered
+  const ctx=currentQ ? `<div style="font-size:.75em;color:var(--cyan);margin-bottom:8px">📺 Just covered: ${currentQ[0]}</div>` : '';
+  document.getElementById('checkinQ').innerHTML=ctx+q[0];
+  document.getElementById('checkinOpts').innerHTML=q[1].map((o,i)=>
+    `<button class="opt" onclick="answerCheckin(${i},this)"><span class="key">${i+1}</span>${o}</button>`).join('');
+  document.getElementById('checkinExpl').classList.remove('show');
+  document.getElementById('checkinResume').classList.remove('show');
+  document.getElementById('checkinov').classList.add('show');
+  sndCard();
+}
+
+// Generate a recall question from the video's own Q&A content
+function genRecallQ(videoQ, segIdx, currentTime, times){
+  const questionText=videoQ[0];
+  const answerText=videoQ[1];
+  const topic=videoQ[2];
+  const cleanAns=answerText.replace(/\*\*(.+?)\*\*/g,'$1').replace(/`(.+?)`/g,'$1');
+  // Gather distractor answers from other questions in the same video
+  const distractors=curVid.qs
+    .filter((q,i)=>i!==segIdx && q[2]!==topic)
+    .map(q=>q[1].replace(/\*\*(.+?)\*\*/g,'$1').replace(/`(.+?)`/g,'$1').split(/[.;:]/)[0].trim())
+    .filter(s=>s.length>10 && s.length<120)
+    .slice(0,10);
+  if(distractors.length<3) return null;
+  for(let i=distractors.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [distractors[i],distractors[j]]=[distractors[j],distractors[i]];
+  }
+  const wrongOpts=distractors.slice(0,3);
+  const correctOpt=cleanAns.split(/[.;:]/)[0].trim().substring(0,120);
+  if(wrongOpts.some(w=>w.toLowerCase()===correctOpt.toLowerCase())) return null;
+  if(correctOpt.length<10) return null;
+  const qText=`Which statement about "${questionText}" is correct?`;
+  const opts=[correctOpt, ...wrongOpts];
+  const indices=[0,1,2,3];
+  for(let i=indices.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [indices[i],indices[j]]=[indices[j],indices[i]];
+  }
+  const shuffled=indices.map(i=>opts[i]);
+  const correctIdx=indices.indexOf(0);
+  return [qText, shuffled, correctIdx, cleanAns, topic];
+}
+function answerCheckin(i,btn){
+  const q=alCurrentQ;
+  const opts=document.querySelectorAll('#checkinOpts .opt');
+  opts.forEach(b=>b.disabled=true);
+  const cor=i===q[2];
+  alCheckinCount++;
+  if(cor){
+    btn.classList.add('correct');
+    alCheckinCorrect++;
+    alCheckinStreak++;
+    addXP(10,btn);
+    juiceCorrect(btn);
+  } else {
+    btn.classList.add('wrong');
+    opts[q[2]].classList.add('correct');
+    alCheckinStreak=0;
+    juiceWrong(btn);
+  }
+  // Track in quiz stats
+  S.quiz[q[4]]=S.quiz[q[4]]||{att:0,cor:0};
+  S.quiz[q[4]].att++; S.att++;
+  if(cor){ S.quiz[q[4]].cor++; S.cor++; }
+  save();
+  // Show explanation + resume button
+  const ex=document.getElementById('checkinExpl');
+  ex.innerHTML=(cor?'✅ <b>Correct!</b> ':'❌ <b>Not quite.</b> ')+q[3];
+  ex.classList.add('show');
+  document.getElementById('checkinResume').classList.add('show');
+  // Update stats
+  document.getElementById('checkinCount').textContent=alCheckinCount;
+  document.getElementById('checkinCorrect').textContent=alCheckinCorrect;
+  document.getElementById('checkinStreak').textContent=alCheckinStreak;
+  if(cor && alCheckinStreak>=3){
+    mascotSay(alCheckinStreak+' in a row! 🔥 Keep it up!',true);
+  }
+}
+function resumeAfterCheckin(){
+  document.getElementById('checkinov').classList.remove('show');
+  // Resume video after a tiny delay so overlay fade is clean
+  setTimeout(()=>{
+    try { ytPlayer.playVideo(); } catch(e){}
+  }, 200);
+  sndOK();
+}
+function onYTStateChange(event){
+  // Reset check-in baseline when video starts playing
+  if(event.data===YT.PlayerState.PLAYING){
+    if(alLastCheck===0){
+      try { alLastCheck=ytPlayer.getCurrentTime(); } catch(e){}
+    }
+  }
+}
+// ================= HYPE INTRO GATE =================
+// Every study video starts LOCKED behind a 94s celebration video.
+// Watch it to the end (or pay 50 XP to skip) to unlock the real video.
+const INTRO_VID='oKjtZlHSKX8';
+const INTRO_SEC=94;
+let introPending=null, introTm=null, introJumpTarget=null;
+function playIntroFor(vid){
+  introPending=vid;
+  document.getElementById('introFrame').src=
+    `https://www.youtube.com/embed/${INTRO_VID}?autoplay=1&rel=0&modestbranding=1&playsinline=1&enablejsapi=1`;
+  document.getElementById('introov').classList.add('show');
+  const fill=document.getElementById('introFill');
+  const status=document.getElementById('introStatus');
+  const skip=document.getElementById('introSkip');
+  fill.style.transition='none'; fill.style.width='100%';
+  void fill.offsetWidth;
+  fill.style.transition=`width ${INTRO_SEC}s linear`;
+  fill.style.width='0%';
+  skip.disabled=false;
+  const t0=Date.now();
+  clearInterval(introTm);
+  introTm=setInterval(()=>{
+    const left=Math.max(0,Math.ceil((INTRO_SEC*1000-(Date.now()-t0))/1000));
+    if(left>0){
+      status.textContent=`🎬 Starting in ${left}s — or tap Skip to begin now`;
+    }else{
+      clearInterval(introTm);
+      unlockIntro(true);
+    }
+  },1000);
+  status.textContent=`🎬 Welcome! Video starting in ${INTRO_SEC}s — or skip to begin now`;
+  sndCard();
+  mascotSay('Welcome to Study Buddy! Skip the intro or watch the hype 🎉',true);
+}
+function unlockIntro(watched){
+  clearInterval(introTm);
+  const ov=document.getElementById('introov');
+  if(!ov.classList.contains('show')&&introPending===null) return;
+  const vid=introPending; introPending=null;
+  ov.classList.remove('show');
+  document.getElementById('introFrame').src='';
+  // Load the first video (or the pending one from search)
+  if(vid) actuallyLoadVideo(vid);
+  else if(!curVid || !document.querySelector('#ytPlayer iframe, #ytPlayerInner')) actuallyLoadVideo(VIDEOS[0].id);
+  if(introJumpTarget!==null){
+    const hit=introJumpTarget; introJumpTarget=null;
+    setTimeout(()=>{
+      const card=document.getElementById('qc-'+hit);
+      if(card){ card.classList.add('open'); card.scrollIntoView({behavior:'smooth',block:'center'}); }
+    },150);
+  }
+  if(watched){
+    addXP(25);
+    toast("🎉 Welcome! +25 XP — let's study!");
+    sndOK();
+  }
+}
+function skipIntro(){
+  toast('⏭️ Skipped the intro — let\'s study!');
+  unlockIntro(false);
+}
+function actuallyLoadVideo(id){
+  const v=VIDEOS.find(x=>x.id===id);
+  if(!v) return;
+  curVid=v;
+  // Reset active listening baseline for new video
+  alLastCheck=0;
+  setEmbed(id,null);
+  document.getElementById('vidTitle').textContent=v.title;
+  document.getElementById('vidMeta').textContent=
+    '▶ Mark questions ✅ as you internalize them — honest self-assessment = real readiness.';
+  const topo=document.getElementById('topoImg');
+  if(v.topo){ topo.src=v.topo; topo.style.display='block'; }
+  else topo.style.display='none';
+  renderVideoQs();
+  renderPrecheckBar();
+  renderQuestBar();
+  if(!S.watched[id]){ S.watched[id]=true; addXP(10); }
+  save();
+}
+function jumpTo(i){
+  const vid=curVid.id;
+  const times=Q_TIMES[vid]||[];
+  const t=times[i];
+  if(typeof t!=='number'){ toast('⏱️ No timestamp for this question yet'); return; }
+  sndCard();
+  setEmbed(vid,t);
+  toast('⏱️ Jumped to '+fmtTS(t));
+  const card=document.getElementById('qc-'+i);
+  if(card){ card.classList.add('open'); card.scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+
+// WATCH
+let curVid=VIDEOS[0];
+
+// ================= PRE-CHECK CHALLENGE =================
+// Quiz the user on a video's questions BEFORE watching. Pass = skip that part.
+let pcQueue=[],pcIdx=0,pcCor=0,pcResults=[],pcActive=false;
+const PC_STOP=new Set('a an the is are was were be been of in on at to for and or but with vs by as it its this that these those from into about can could would should will shall may must not no yes do does did done have has had you your we our they their'.split(' '));
+function pcKeywords(ans){
+  const words=(ans.match(/[A-Za-z][A-Za-z0-9\.\-\/]{2,}/g)||[]).map(w=>w.toLowerCase());
+  return [...new Set(words.filter(w=>!PC_STOP.has(w)&&w.length>3))].slice(0,14);
+}
+function pcBuildMCQ(q){
+  // question text + answer -> MCQ with 3 distractors from other questions' keyword pools
+  const kws=pcKeywords(q[1]);
+  if(kws.length<4) return null; // too short to make a fair MCQ
+  const answer=kws.slice(0,2).join(', '); // core terms of the model answer
+  // distractor terms: keywords from OTHER questions in the same topic
+  const others=[];
+  VIDEOS.forEach(v=>v.qs.forEach(oq=>{
+    if(oq!==q&&oq[2]===q[2]) others.push(...pcKeywords(oq[1]).slice(0,2));
+  }));
+  QUIZ.forEach(z=>{ if(z[4]===q[2]) others.push(...pcKeywords(z[3]).slice(0,2)); });
+  const uniq=[...new Set(others)].filter(k=>!kws.includes(k));
+  // pick 3 distractors far apart
+  const picks=[];
+  while(picks.length<3&&uniq.length){
+    const i=Math.floor(Math.random()*Math.min(uniq.length,20));
+    const t=uniq.splice(i,1)[0];
+    if(!picks.includes(t)) picks.push(t);
+  }
+  if(picks.length<3) return null;
+  const opts=[answer,...picks].sort(()=>Math.random()-.5);
+  return {q:q[0],opts,ans:opts.indexOf(answer),real:q};
+}
+function renderPrecheckBar(){
+  const bar=document.getElementById('precheckBar');
+  if(!bar) return;
+  const qs=curVid.qs;
+  const mcqable=qs.filter(q=>pcBuildMCQ(q));
+  const done=S.precheck&&S.precheck[curVid.id];
+  const understoodN=qs.filter(q=>S.understood[curVid.id+'::'+q[0]]).length;
+  if(!mcqable.length){
+    bar.style.display='none'; return;
+  }
+  bar.style.display='flex';
+  bar.className='precheck-bar'+(done?' done-pc':'');
+  bar.innerHTML=`
+    <div>
+      <h4>${done?'✅ Pre-check complete':'🧠 Think you already know this?'}</h4>
+      <div class="pc-sub">${
+        done?`Scored ${done.cor}/${done.n} last time. Watch plan was generated.`:
+        `Answer up to ${mcqable.length} challenge questions first — prove what you know, only watch the parts you miss.`
+      }</div>
+    </div>
+    <button class="pcbtn" onclick="startPrecheck()">${done?'🔄 Re-check':'⚡ Challenge me!'}</button>`;
+}
+function startPrecheck(){
+  const qs=curVid.qs.map(pcBuildMCQ).filter(Boolean);
+  if(!qs.length){ toast('Not enough content to challenge — just watch 🎬'); return; }
+  pcQueue=qs.sort(()=>Math.random()-.5);
+  pcIdx=0;pcCor=0;pcResults=[];pcActive=true;
+  document.getElementById('pcVidName').textContent=curVid.title.split('—')[0].trim();
+  document.getElementById('pcPlay').style.display='block';
+  document.getElementById('pcDone').style.display='none';
+  document.getElementById('pcov').classList.add('show');
+  showPcQ();
+  sndCard();
+}
+function showPcQ(){
+  const m=pcQueue[pcIdx];
+  document.getElementById('pcCount').textContent=`Question ${pcIdx+1} / ${pcQueue.length} · no pressure — wrong answers just tell you what to watch`;
+  document.getElementById('pcQ').textContent=m.q;
+  document.getElementById('pcOpts').innerHTML=m.opts.map((o,i)=>
+    `<button class="pc-opt" onclick="pcAnswer(${i},this)">${o}</button>`).join('');
+  document.getElementById('pcFb').classList.remove('show');
+  document.getElementById('pcNext').style.display='none';
+  document.querySelector('.pc-skip').style.display='none';
+}
+function pcAnswer(i,btn){
+  const m=pcQueue[pcIdx];
+  const opts=document.querySelectorAll('#pcOpts .pc-opt');
+  opts.forEach(b=>b.disabled=true);
+  const cor=i===m.ans;
+  const qi=curVid.qs.indexOf(m.real); // index in video for timestamp
+  pcResults.push({q:m.real[0],cor,vidIdx:qi});
+  if(cor){
+    btn.classList.add('correct'); pcCor++;
+    juiceCorrect(btn);
+    // pass = already mastered this one → auto-mark understood
+    const qid=curVid.id+'::'+m.real[0];
+    if(!S.understood[qid]){ S.understood[qid]=true; addXP(15); }
+    else addXP(5);
+    toast('✅ Nailed it — you can SKIP this part of the video!');
+  }else{
+    btn.classList.add('wrong'); opts[m.ans].classList.add('correct');
+    juiceWrong(btn);
+    addXP(2);
+    toast('📌 Marked for watching — the ⏱️ button will take you there');
+  }
+  const fb=document.getElementById('pcFb');
+  fb.innerHTML=(cor?'✅ <b>Correct!</b> ':'❌ <b>Watch this part.</b> ')+
+    'Key points: '+m.real[1].replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').slice(0,220)+
+    (m.real[1].length>220?'…':'');
+  fb.classList.add('show');
+  const n=document.getElementById('pcNext');
+  n.style.display='inline-block';
+  n.textContent=(pcIdx===pcQueue.length-1)?'See results 🏁':'Next →';
+}
+function pcNext(){
+  pcIdx++;
+  if(pcIdx<pcQueue.length) showPcQ();
+  else endPrecheck(true);
+}
+function endPrecheck(finished){
+  if(!finished){ document.getElementById('pcov').classList.remove('show'); pcActive=false; return; }
+  pcActive=false;
+  // record
+  S.precheck=S.precheck||{};
+  const prev=S.precheck[curVid.id];
+  const score={n:pcQueue.length,cor:pcCor,at:Date.now()};
+  S.precheck[curVid.id]=score;
+  save();
+  // verdict + watch plan
+  const pct=pcCor/pcQueue.length;
+  const missed=pcResults.filter(r=>!r.cor).map(r=>r.vidIdx);
+  const el=document.getElementById('pcScore');
+  el.textContent=pcCor+'/'+pcQueue.length;
+  el.style.color=pct>=.8?'var(--green)':pct>=.5?'var(--gold)':'var(--pink)';
+  document.getElementById('pcVerdict').innerHTML=
+    pct===1?'🏆 PERFECT — you know this video already. Skim or skip it!':
+    pct>=.8?'🔥 Almost there — just patch the gaps below.':
+    pct>=.5?'💪 Halfway — the watch plan below is your shortcut.':
+    '📚 Fresh territory — watch this one properly, it\'s all new.';
+  document.getElementById('pcSub').textContent='Questions you passed are marked ✅ — you\'re free to skip them.';
+  const plan=document.getElementById('pcPlan');
+  if(missed.length){
+    plan.innerHTML='<b>🎬 Your watch plan:</b><br>'+
+      missed.map(i=>{
+        const t=(Q_TIMES[curVid.id]||[])[i];
+        return `<span class="must">▶ MUST WATCH: Q${i+1} — ${curVid.qs[i][0].slice(0,60)}${t!==undefined?` (jump ⏱️ ${fmtTS(t)})`:''}</span>`;
+      }).join('<br>')+
+      (pcResults.filter(r=>r.cor).length?`<br><span class="skip-ok">✓ Can skip: ${pcResults.filter(r=>r.cor).map(r=>'Q'+(r.vidIdx+1)).join(', ')}</span>`:'');
+  }else{
+    plan.innerHTML='<span class="skip-ok">✓ Nothing to watch — you passed everything! Go crush another video 🚀</span>';
+  }
+  document.getElementById('pcPlay').style.display='none';
+  document.getElementById('pcDone').style.display='block';
+  renderPrecheckBar();
+  renderVideoQs(); // show fresh ✅ marks on passed questions
+  renderQuestBar(); // quest pips update as pre-check passes questions
+  if(pct===1){ confetti(); sndLvl(); mascotSay('You didn\'t even NEED that video 😎',true); }
+  else if(pct>=.8) mascotSay('Surgical strikes only — I respect it 🎯',true);
+  else mascotSay('Now watch smart, not long 🧠',true);
+}
+
+// ================= VIDEO QUESTS + LOOT CHESTS =================
+// Zone structure: 4 zones of videos. Clear ALL questions of a video -> video cleared.
+// Zone fully cleared -> BOSS unlocks. Boss beaten -> epic chest + next zone.
+const ZONES=[
+ {name:'🌐 Zone 1 — Fundamentals', vids:['D1','D2','D3','D4','D5'], boss:{ico:'🐲',name:'THE FUNDAMENTALS DRAGON',desc:'5 questions · it breathes OSI fire',topics:['Fundamentals']}},
+ {name:'🔀 Zone 2 — Switching & STP', vids:['D8','D9','D10','D11','D12','D13'], boss:{ico:'🧙',name:'THE LOOP WARLOCK',desc:'STP incantations · blocks your ports',topics:['Switching','VLAN & Trunking','STP','EtherChannel']}},
+ {name:'🛰️ Zone 3 — Routing Masters', vids:['D6','D7','D14','D15','D16'], boss:{ico:'👻',name:'THE ROUTING PHANTOM',desc:'AD hauntings · recursive nightmares',topics:['Routing','OSPF','EIGRP','NAT','ACL']}},
+ {name:'🎭 Zone 4 — Scenario Trials', vids:['S1','S2','S3','S1D','S3D'], boss:{ico:'👑',name:'THE INTERVIEW OVERLORD',desc:'The final boss. Everything you\'ve learned.',topics:['Scenarios','Troubleshooting','Fundamentals','STP','VLAN & Trunking']}},
+];
+function vidCleared(vidId){
+  const v=VIDEOS.find(x=>x.id===vidId);
+  if(!v) return false;
+  return v.qs.every(q=>S.understood[vidId+'::'+q[0]]);
+}
+function vidClearedCount(vidId){
+  const v=VIDEOS.find(x=>x.id===vidId);
+  if(!v) return [0,0];
+  return [v.qs.filter(q=>S.understood[vidId+'::'+q[0]]).length, v.qs.length];
+}
+function zoneState(z){
+  const cleared=z.vids.filter(vidCleared).length;
+  return {cleared, total:z.vids.length, done:cleared===z.vids.length};
+}
+function renderQuestBar(){
+  const bar=document.getElementById('questBar');
+  if(!bar) return;
+  // find current zone (first not-done zone containing curVid, else the zone of curVid)
+  let zone=ZONES.find(z=>z.vids.includes(curVid.id))||ZONES[0];
+  const zs=zoneState(zone);
+  const [done,total]=vidClearedCount(curVid.id);
+  const allDone=done===total;
+  const chestReady=allDone&&!S.chests||allDone&&!S.chests[curVid.id];
+  bar.style.display='flex';
+  bar.className='quest-bar'+(allDone?' done-pc':'');
+  bar.innerHTML=`
+    <div style="flex:1;min-width:200px">
+      <div class="qtitle">${allDone?'🏆 VIDEO CLEARED!':'⚔️ Video Quest'}</div>
+      <div class="qsub">${allDone?'All questions mastered — claim your loot!':`Master all questions to clear this video · Zone: ${zone.name.replace('—','·')}`}</div>
+      <div class="pips">${curVid.qs.map((q,i)=>`<div class="pip ${S.understood[curVid.id+'::'+q[0]]?'on':''}"></div>`).join('')}</div>
+    </div>
+    ${chestReady?`<button class="chestbtn" onclick="openChestEvent()">🎁 CLAIM LOOT</button>`:''}
+  `;
+  // boss card check
+  renderBossCard();
+}
+function nextBossAvailable(){
+  // first zone fully cleared and boss not yet beaten
+  for(let i=0;i<ZONES.length;i++){
+    const zs=zoneState(ZONES[i]);
+    if(zs.done && !(S.bosses&&S.bosses[i])) return i;
+  }
+  return -1;
+}
+function renderBossCard(){
+  const holder=document.getElementById('bossCardHolder');
+  if(!holder) return;
+  const bi=nextBossAvailable();
+  if(bi<0){ holder.innerHTML=''; return; }
+  const b=ZONES[bi].boss;
+  holder.innerHTML=`
+    <div class="boss-card">
+      <div>
+        <div class="bname">${b.ico} ${b.name} APPEARS!</div>
+        <div class="bsub">Zone ${bi+1} cleared — this boss guards the gate. ${b.desc}</div>
+      </div>
+      <button class="boss-btn" onclick="showBoss(${bi})">⚔️ BOSS FIGHT</button>
+    </div>`;
+}
+// ----- LOOT -----
+const CHEST_REWARDS=[
+  {p:.45, r:'common',  xp:30,  txt:'A fistful of XP'},
+  {p:.28, r:'rare',   xp:75,  txt:'Router cache unlocked'},
+  {p:.17, r:'epic',   xp:150, txt:'The switch sings for you'},
+  {p:.10, r:'legendary', xp:400, txt:'LEGENDARY DROP! The network gods smile'},
+];
+let chestCtx=null;
+function openChestEvent(){
+  chestCtx='quest:'+curVid.id;
+  document.getElementById('chestov').classList.add('show');
+  document.getElementById('chestClosed').style.display='block';
+  document.getElementById('chestOpen').style.display='none';
+  const ico=document.getElementById('chestIco');
+  ico.className='chest-ico shaking';
+  sndCard();
+}
+function openChest(){
+  const ico=document.getElementById('chestIco');
+  if(!ico.classList.contains('shaking')) return;
+  ico.className='chest-ico';
+  // roll rarity
+  const roll=Math.random();
+  let acc=0, rew=CHEST_REWARDS[0];
+  for(const r of CHEST_REWARDS){ acc+=r.p; if(roll<=acc){ rew=r; break; } }
+  let extra='';
+  // epic+ can drop a streak shield
+  if((rew.r==='epic'||rew.r==='legendary')){
+    S.shields=(S.shields||0)+1;
+    extra=`🛡️ <b>BONUS DROP: Streak Shield!</b> Protects your streak for one missed day. (${S.shields} owned)`;
+  }
+  S.chests=S.chests||{};
+  S.chests[curVid.id]=true;
+  save();
+  document.getElementById('chestClosed').style.display='none';
+  document.getElementById('chestOpen').style.display='block';
+  const rar=document.getElementById('chestRarity');
+  rar.textContent=rew.r.toUpperCase()+'!';
+  rar.className='rarity '+rew.r;
+  document.getElementById('chestReward').innerHTML=`+${rew.xp} XP — ${rew.txt}`;
+  document.getElementById('chestExtra').innerHTML=extra||'Better luck next roll… or IS it? 🎲';
+  addXP(rew.xp);
+  if(rew.r==='legendary'){ confetti(); sndLvl(); grantAch('legend'); }
+  else if(rew.r==='epic'){ confetti(); }
+  mascotSay(rew.r==='legendary'?'A LEGENDARY?! I\'m framing this moment 🖼️':'Loot secured 😎',true);
+  renderQuestBar();
+}
+// ================= BOSS FIGHTS =================
+let bossIdx=-1,bossQueue=[],bossQn=0,bossHearts=3,bossTm=null,bossT0=0;
+function showBoss(i){
+  bossIdx=i;
+  const b=ZONES[i].boss;
+  document.getElementById('bossIco').textContent=b.ico;
+  document.getElementById('bossName').textContent=b.name;
+  document.getElementById('bossDesc').textContent=b.desc;
+  document.getElementById('bossIntro').style.display='block';
+  document.getElementById('bossFight').style.display='none';
+  document.getElementById('bossEnd').style.display='none';
+  document.getElementById('bossov').classList.add('show');
+  sndNO();
+}
+function startBossFight(){
+  const b=ZONES[bossIdx].boss;
+  // 5 questions from the zone's topics (quiz bank), shuffled
+  bossQueue=QUIZ.filter(q=>b.topics.includes(q[4])).sort(()=>Math.random()-.5).slice(0,5);
+  if(!bossQueue.length){ toast('No questions available for this boss'); return; }
+  bossQn=0; bossHearts=3;
+  document.getElementById('bossIntro').style.display='none';
+  document.getElementById('bossFight').style.display='block';
+  showBossQ();
+}
+function showBossQ(){
+  const q=bossQueue[bossQn];
+  if(!q){ bossVictory(); return; }
+  document.getElementById('bossCount').textContent=`Question ${bossQn+1} / ${bossQueue.length} · ❤️ ×${bossHearts}`;
+  document.getElementById('bossHearts').innerHTML=[0,1,2].map(i=>`<span class="${i<bossHearts?'':'lost'}">❤️</span>`).join('');
+  document.getElementById('bossQ').textContent=q[0];
+  document.getElementById('bossOpts').innerHTML=q[1].map((o,i)=>
+    `<button class="pc-opt" onclick="bossAnswer(${i},this)">${o}</button>`).join('');
+  document.getElementById('bossFb').classList.remove('show');
+  // 20s timer
+  const fill=document.getElementById('bossTimerFill');
+  fill.style.transition='none'; fill.style.width='100%';
+  void fill.offsetWidth;
+  fill.style.transition='width .95s linear';
+  bossT0=Date.now();
+  stopBossTimer();
+  const anim=()=>{ 
+    if(bossQn>=bossQueue.length||bossHearts<=0) return; // fight over — stop ticking
+    const left=Math.max(0,1-(Date.now()-bossT0)/20000);
+    fill.style.width=(left*100)+'%';
+    if(left<=0){ bossTimeout(); return; }
+    bossTm=requestAnimationFrame(anim);
+  };
+  bossTm=requestAnimationFrame(anim);
+}
+function stopBossTimer(){
+  if(bossTm){ cancelAnimationFrame(bossTm); bossTm=null; }
+}
+function bossTimeout(){ stopBossTimer(); bossResolve(false,null,true); }
+function bossAnswer(i,btn){
+  const q=bossQueue[bossQn];
+  if(!q) return;
+  const cor=i===q[2];
+  if(cor) btn.classList.add('correct');
+  else { btn.classList.add('wrong'); document.querySelectorAll('#bossOpts .pc-opt')[q[2]].classList.add('correct'); }
+  document.querySelectorAll('#bossOpts .pc-opt').forEach(b=>b.disabled=true);
+  stopBossTimer();
+  setTimeout(()=>bossResolve(cor,btn,false),700);
+}
+function bossResolve(cor,btn,timeout){
+  stopBossTimer();
+  const q=bossQueue[bossQn];
+  if(!q) return; // already resolved — guard against timer/answer race
+  const fb=document.getElementById('bossFb');
+  if(cor){
+    juiceCorrect(btn);
+    fb.innerHTML='💥 <b>HIT!</b> '+q[3];
+  }else{
+    bossHearts--;
+    juiceWrong(btn);
+    fb.innerHTML=(timeout?'⏰ <b>TOO SLOW — the boss strikes!</b> ':'🩸 <b>The boss hits you!</b> ')+q[3];
+  }
+  fb.classList.add('show');
+  if(bossHearts<=0){ setTimeout(bossDefeat,1400); return; }
+  bossQn++;
+  if(bossQn<bossQueue.length){ setTimeout(showBossQ,1500); }
+  else setTimeout(bossVictory,1400);
+}
+function bossVictory(){
+  stopBossTimer();
+  const b=ZONES[bossIdx].boss;
+  S.bosses=S.bosses||{};
+  const firstTime=!S.bosses[bossIdx];
+  S.bosses[bossIdx]=true;
+  save();
+  document.getElementById('bossFight').style.display='none';
+  document.getElementById('bossEnd').style.display='block';
+  document.getElementById('bossEndIco').textContent='🏆';
+  document.getElementById('bossEndTitle').textContent=b.name+' DEFEATED!';
+  const xp=firstTime?300:75;
+  S.shields=(S.shields||0)+1;
+  document.getElementById('bossEndMsg').innerHTML=`+${xp} XP · 🛡️ Streak Shield earned (+1, now ${S.shields})${firstTime?'':'<br><span class="muted">(repeat kill — reduced XP, shield still counts)</span>'}`;
+  addXP(xp);
+  confetti(); sndLvl();
+  mascotSay('BOSS DOWN! I\'m telling ALL my mascot friends 🏆',true);
+  renderQuestBar();
+}
+function bossDefeat(){
+  stopBossTimer();
+  document.getElementById('bossFight').style.display='none';
+  document.getElementById('bossEnd').style.display='block';
+  document.getElementById('bossEndIco').textContent='💀';
+  document.getElementById('bossEndTitle').textContent='You were defeated…';
+  document.getElementById('bossEndMsg').innerHTML='The boss heals fully. Train your weak topics (📊 Readiness tab) and come back stronger! 💪';
+  sndNO();
+  mascotSay('Every expert was a beginner who REFUSED to quit 💪');
+}
+
+function buildVideoSelect(){
+  const sel=document.getElementById('videoSelect');
+  let html='<optgroup label="📚 PM Networking — Top 100 Series">';
+  VIDEOS.filter(v=>v.id.startsWith('D')).forEach((v,i)=>{
+    html+=`<option value="${v.id}" ${i===0?'selected':''}>${v.title}</option>`;
+  });
+  html+='</optgroup><optgroup label="🎭 PM Networking — Scenario Series">';
+  VIDEOS.filter(v=>/^S/.test(v.id)).forEach(v=>{ html+=`<option value="${v.id}">${v.title}</option>`; });
+  html+='</optgroup>';
+  sel.innerHTML=html;
+  sel.onchange=()=>loadVideo(sel.value);
+}
+function loadVideo(id){
+  // Same video = no reload
+  if(id===curVid.id&&document.querySelector('#ytPlayer iframe, #ytPlayerInner')){ sndCard(); return; }
+  // Load directly — no hype gate per video
+  actuallyLoadVideo(id);
+}
+function fmt(s){ return s.replace(/\*\*(.+?)\*\*/g,'<b style="color:var(--gold)">$1</b>').replace(/`(.+?)`/g,'<code style="background:var(--bg1);padding:1px 5px;border-radius:4px">$1</code>'); }
+function renderVideoQs(){
+  document.getElementById('videoQs').innerHTML=curVid.qs.map((q,i)=>{
+    const qid=curVid.id+'::'+q[0];
+    const done=!!S.understood[qid];
+    return `<div class="qcard ${done?'done':''}" id="qc-${i}">
+      <div class="qhead" onclick="document.getElementById('qc-${i}').classList.toggle('open')">
+        <div class="qnum">Q${i+1}</div>
+        <div class="qtext">${q[0]}</div>
+        <div class="qbadge" style="background:${TCOLORS[q[2]]}88">${q[2]}</div>
+      </div>
+      <div class="qbody">${fmt(q[1])}<br>
+        <button class="jumpbtn" onclick="event.stopPropagation();jumpTo(${i})">⏱️ Jump to ${fmtTS((Q_TIMES[curVid.id]||[])[i]||0)}</button>
+        ${done
+          ? `<button class="gotbtn undo" onclick="markQ('${encodeURIComponent(q[0])}',false)">↩ Unmark</button>`
+          : `<button class="gotbtn yes" onclick="markQ('${encodeURIComponent(q[0])}',true)">✅ I can explain this</button>
+             <button class="gotbtn notyet" onclick="markQ('${encodeURIComponent(q[0])}',false)">🔁 Review later</button>`}
+      </div></div>`;
+  }).join('');
+}
+function markQ(qEnc,val){
+  const q=decodeURIComponent(qEnc);
+  const qid=curVid.id+'::'+q;
+  const was=!!S.understood[qid];
+  S.understood[qid]=val;
+  if(val&&!was){ addXP(15); sndOK(); mascotSay(MASCOT_LINES.correct[Math.floor(Math.random()*MASCOT_LINES.correct.length)],true); } else save();
+  renderVideoQs();
+  renderQuestBar();
+}
+function doSearch(){
+  const term=document.getElementById('qSearch').value.toLowerCase().trim();
+  if(!term) return;
+  for(const v of VIDEOS){
+    const hit=v.qs.findIndex(q=>q[0].toLowerCase().includes(term)||q[1].toLowerCase().includes(term));
+    if(hit>-1){
+      if(curVid.id===v.id){
+        const card=document.getElementById('qc-'+hit);
+        card.classList.add('open');
+        card.scrollIntoView({behavior:'smooth',block:'center'});
+      }else{
+        loadVideo(v.id); // loads video directly
+        introJumpTarget=hit;
+      }
+      sndCard();
+      return;
+    }
+  }
+  toast('🔍 No question matches "'+term+'"');
+}
+function zoomImg(src){ document.getElementById('zoomImgEl').src=src; document.getElementById('zoomov').classList.add('show'); }
+
+// QUIZ
+let quizQueue=[],quizIdx=0,quizCor=0,quizMode='classic',quizFilters=new Set(TOPICS);
+let rfScore=0,rfCombo=0,rfBest=0,rfEnd=0,rfIv=null;
+function buildQuizFilters(){
+  document.getElementById('quizFilters').innerHTML=
+    `<span class="chip ${quizFilters.size===TOPICS.length?'on':''}" onclick="toggleAllTopics()">ALL</span>`+
+    TOPICS.map(t=>`<span class="chip ${quizFilters.has(t)?'on':''}" onclick="toggleTopic('${t}')">${t}</span>`).join('');
+}
+function toggleTopic(t){ quizFilters.has(t)?quizFilters.delete(t):quizFilters.add(t); buildQuizFilters(); }
+function toggleAllTopics(){
+  if(quizFilters.size===TOPICS.length) quizFilters.clear(); else TOPICS.forEach(t=>quizFilters.add(t));
+  buildQuizFilters();
+}
+function pool(){ return QUIZ.filter(q=>quizFilters.has(q[4])); }
+function startQuiz(){ quizMode='classic'; beginQueue(pool().sort(()=>Math.random()-.5).slice(0,10)); }
+function startWeak(){
+  quizMode='classic';
+  const scored=TOPICS.map(t=>[t,topicStat(t).score]).sort((a,b)=>a[1]-b[1]).slice(0,3).map(x=>x[0]);
+  const p=QUIZ.filter(q=>scored.includes(q[4])).sort(()=>Math.random()-.5).slice(0,10);
+  toast('🎯 Targeting: '+scored.join(', '));
+  quizFilters=new Set(scored); buildQuizFilters();
+  beginQueue(p);
+}
+function beginQueue(q){
+  if(!q||!q.length){ alert('Pick at least one topic!'); return; }
+  quizQueue=q; quizIdx=0; quizCor=0;
+  document.getElementById('quizStart').classList.add('hidden');
+  document.getElementById('quizDone').classList.add('hidden');
+  document.getElementById('quizPlay').classList.remove('hidden');
+  showQuizQ();
+}
+function startRapid(){
+  quizMode='rapid';
+  const p=pool().sort(()=>Math.random()-.5);
+  if(!p.length){ alert('Pick at least one topic!'); return; }
+  quizQueue=p; quizIdx=0; rfScore=0; rfCombo=0; rfBest=0;
+  rfEnd=Date.now()+60000;
+  document.getElementById('quizStart').classList.add('hidden');
+  document.getElementById('quizDone').classList.add('hidden');
+  document.getElementById('quizPlay').classList.remove('hidden');
+  clearInterval(rfIv);
+  rfIv=setInterval(()=>{
+    const left=Math.max(0,rfEnd-Date.now());
+    const el=document.getElementById('quizCount');
+    el.innerHTML=`⏱️ <b style="color:var(--cyan);font-size:1.2em">${(left/1000).toFixed(1)}s</b> &nbsp; Score: ${rfScore} &nbsp; 🔥x${rfCombo}`;
+    if(left<=0) endRapid();
+  },100);
+  showQuizQ();
+}
+function showQuizQ(){
+  const q=quizQueue[quizIdx%quizQueue.length];
+  if(quizMode==='classic')
+    document.getElementById('quizCount').textContent=`Question ${quizIdx+1} / ${quizQueue.length} · ${q[4]}`;
+  document.getElementById('quizQ').innerHTML=`${q[0]} <span class="kbd-hint">${quizMode==='classic'?'· keys 1-4, Enter':''}</span>`;
+  document.getElementById('quizProg').style.width=quizMode==='classic'?(quizIdx/quizQueue.length*100)+'%':'100%';
+  document.getElementById('quizOpts').innerHTML=q[1].map((o,i)=>
+    `<button class="opt" onclick="answerQuiz(${i},this)"><span class="key">${i+1}</span>${o}</button>`).join('');
+  document.getElementById('quizExpl').classList.remove('show');
+  document.getElementById('quizNext').classList.remove('show');
+}
+function answerQuiz(i,btn){
+  const q=quizQueue[quizIdx%quizQueue.length];
+  const opts=document.querySelectorAll('#quizOpts .opt');
+  opts.forEach(b=>b.disabled=true);
+  const cor=i===q[2];
+  if(cor){
+    btn.classList.add('correct');
+    if(quizMode==='classic'){
+      quizCor++;
+      S.combo=(S.combo||0)+1;
+      if(S.combo>=3) comboFloat(S.combo+'x COMBO!', innerWidth/2-80, 180, S.combo>=6);
+      if(S.combo===5) mascotSay('FIVE IN A ROW! 🔥 Don\'t stop now!',true);
+    }
+    else{rfCombo++;rfScore+=1+Math.floor(rfCombo/3);rfBest=Math.max(rfBest,rfCombo);rfEnd+=1500;
+      if(rfCombo>=3) comboFloat(rfCombo+'x!', innerWidth/2-60, 180, false);}
+    juiceCorrect(btn);
+  } else {
+    btn.classList.add('wrong'); opts[q[2]].classList.add('correct');
+    if(quizMode==='classic') S.combo=0;
+    if(quizMode==='rapid'){rfCombo=0;}
+    juiceWrong(btn);
+    if(Math.random()<.5) mascotSay(MASCOT_LINES.wrong[Math.floor(Math.random()*MASCOT_LINES.wrong.length)]);
+  }
+  S.quiz[q[4]]=S.quiz[q[4]]||{att:0,cor:0};
+  S.quiz[q[4]].att++; S.att++;
+  if(cor){S.quiz[q[4]].cor++; S.cor++; addXP(quizMode==='rapid'?10:15,btn);} else addXP(2);
+  if(quizMode==='rapid' && rfScore>=15) grantAch('rapid');
+  const ex=document.getElementById('quizExpl');
+  ex.innerHTML=(cor?'✅ <b>Correct!</b> ':'❌ <b>Not quite.</b> ')+q[3];
+  ex.classList.add('show');
+  if(quizMode==='classic'){
+    document.getElementById('quizNext').classList.add('show');
+    document.getElementById('quizProg').style.width=((quizIdx+1)/quizQueue.length*100)+'%';
+  } else {
+    setTimeout(()=>{ if(Date.now()<rfEnd){quizIdx++; showQuizQ();} },750);
+  }
+}
+function nextQuiz(){
+  quizIdx++;
+  if(quizIdx<quizQueue.length) showQuizQ();
+  else{
+    document.getElementById('quizPlay').classList.add('hidden');
+    const pct=Math.round(quizCor/quizQueue.length*100);
+    const el=document.getElementById('quizScore');
+    el.textContent=quizCor+'/'+quizQueue.length+' ('+pct+'%)';
+    el.style.color=pct>=80?'var(--green)':pct>=50?'var(--gold)':'var(--pink)';
+    document.getElementById('quizMsg').innerHTML=
+      pct===100?'💯 PERFECT RUN! (+100 bonus XP)':pct>=80?'🔥 Boss-ready on these topics!':
+      pct>=50?'💪 Solid — review the misses, then re-quiz.':'📚 Rebuild: watch the linked videos first.';
+    document.getElementById('quizDone').classList.remove('hidden');
+    if(pct===100){addXP(100);grantAch('perfect');confetti();sndLvl();}
+    else if(pct>=80)addXP(50);
+  }
+}
+function endRapid(){
+  clearInterval(rfIv);
+  document.getElementById('quizPlay').classList.add('hidden');
+  const el=document.getElementById('quizScore');
+  el.textContent=rfScore;
+  el.style.color=rfScore>=15?'var(--green)':rfScore>=8?'var(--gold)':'var(--pink)';
+  document.getElementById('quizMsg').innerHTML=`Best combo: x${rfBest}<br>${rfScore>=15?'🔥 Speed demon! Instant recall = interview ready.':rfScore>=8?'⚡ Good pace — push for 15+ tomorrow.':'🐢 Slow is OK while learning — retry tomorrow.'}`;
+  document.getElementById('quizDone').classList.remove('hidden');
+  if(rfScore>=15)confetti();
+}
+function resetQuiz(){
+  document.getElementById('quizDone').classList.add('hidden');
+  document.getElementById('quizStart').classList.remove('hidden');
+  clearInterval(rfIv);
+}
+
+// FLASHCARDS
+const BOX_DAYS=[0,1,2,4,8,16];
+let flashQueue=[],flashIdx=0,flashFlipped=false,flashSess=0;
+function cardState(i){ if(!S.flash[i]) S.flash[i]={box:1,due:0}; return S.flash[i]; }
+function dueCards(){
+  const now=Date.now();
+  return FLASH.map((f,i)=>i).filter(i=>{const st=S.flash[i]; return !st || st.due<=now;});
+}
+function startFlash(mode){
+  let q;
+  if(mode==='due') q=dueCards();
+  else if(mode==='weak'){
+    const scored=TOPICS.map(t=>[t,topicStat(t).score]).sort((a,b)=>a[1]-b[1]).slice(0,4).map(x=>x[0]);
+    q=FLASH.map((f,i)=>i).filter(i=>scored.includes(FLASH[i][2]));
+  }
+  else q=FLASH.map((f,i)=>i);
+  if(!q.length){ toast('Nothing due — you machine! 🏆'); return; }
+  flashQueue=q.sort(()=>Math.random()-.5);
+  flashIdx=0; flashSess=0;
+  document.getElementById('flashStart').classList.add('hidden');
+  document.getElementById('flashDone').classList.add('hidden');
+  document.getElementById('flashPlay').classList.remove('hidden');
+  showFlash();
+}
+function showFlash(){
+  if(flashIdx>=flashQueue.length){ endFlash(); return; }
+  const ci=flashQueue[flashIdx];
+  const f=FLASH[ci], st=cardState(ci);
+  flashFlipped=false;
+  document.getElementById('flashCount').textContent=`Card ${flashIdx+1}/${flashQueue.length} · ${f[2]}`;
+  document.getElementById('flashTopic').textContent=f[2];
+  document.getElementById('flashFace').textContent=f[0];
+  document.getElementById('flashHint').textContent='click or SPACE to flip';
+  document.getElementById('flashCard').classList.remove('flipped');
+  document.getElementById('flashGrades').style.visibility='hidden';
+  document.getElementById('flashBoxes').innerHTML=
+    [1,2,3,4,5].map(b=>`<span class="box ${st.box>=b?'on':''}"></span>`).join('')+
+    `<span class="muted" style="margin-left:6px">box ${st.box}</span>`;
+}
+function flipFlash(){
+  if(flashIdx>=flashQueue.length) return;
+  if(!flashFlipped){
+    flashFlipped=true;
+    const f=FLASH[flashQueue[flashIdx]];
+    document.getElementById('flashFace').innerHTML=fmt(f[1]);
+    document.getElementById('flashCard').classList.add('flipped');
+    document.getElementById('flashGrades').style.visibility='visible';
+    document.getElementById('flashHint').textContent='grade 1-4 honestly';
+    sndCard();
+  }
+}
+function gradeFlash(g){
+  if(!flashFlipped) return;
+  const ci=flashQueue[flashIdx];
+  const st=cardState(ci);
+  if(g===0){ st.box=1; st.due=Date.now()+10*60*1000; }
+  else if(g===1){ st.due=Date.now()+864e5; }
+  else if(g===2){ st.box=Math.min(5,st.box+1); st.due=Date.now()+BOX_DAYS[st.box]*864e5; }
+  else { st.box=Math.min(5,st.box+2); st.due=Date.now()+BOX_DAYS[st.box]*864e5; }
+  S.flashReviewed++; flashSess++;
+  addXP(g>=2?8:3);
+  if(g>=3&&Math.random()<.4) mascotSay('That card is TOAST 🍞!',true);
+  flashIdx++;
+  showFlash();
+}
+function endFlash(){
+  if(flashSess===0 && flashIdx===0){
+    document.getElementById('flashPlay').classList.add('hidden');
+    document.getElementById('flashStart').classList.remove('hidden');
+    return;
+  }
+  document.getElementById('flashPlay').classList.add('hidden');
+  document.getElementById('flashScore').textContent=flashSess+' cards';
+  document.getElementById('flashScore').style.color='var(--cyan)';
+  document.getElementById('flashMsg').textContent=
+    flashSess>=20?'🧠 Memory cemented. See you tomorrow for the due pile.':flashSess>0?'✅ Nice session — spaced repetition does the rest.':'Session ended.';
+  document.getElementById('flashDone').classList.remove('hidden');
+  if(flashSess>=20)confetti();
+  save();
+}
+
+// SIM
+let simQueue=[],simIdx=0,simSum=0,simTimerIv=null;
+function startSim(){
+  simQueue=SIM.sort(()=>Math.random()-.5).slice(0,10);
+  simIdx=0;simSum=0;
+  document.getElementById('simStart').classList.add('hidden');
+  document.getElementById('simDone').classList.add('hidden');
+  document.getElementById('simPlay').classList.remove('hidden');
+  showSimQ();
+}
+function showSimQ(){
+  const q=simQueue[simIdx];
+  document.getElementById('simCount').textContent=`Question ${simIdx+1} / ${simQueue.length} · ${q[2]}`;
+  document.getElementById('simQ').textContent=q[0];
+  document.getElementById('simModel').classList.remove('show');
+  document.getElementById('simGrades').style.display='none';
+  document.getElementById('simRevealBtn').classList.remove('hidden');
+  let t=60;
+  document.getElementById('simTimer').textContent=t;
+  clearInterval(simTimerIv);
+  simTimerIv=setInterval(()=>{
+    t--; document.getElementById('simTimer').textContent=Math.max(0,t);
+    if(t<=0){clearInterval(simTimerIv);document.getElementById('simTimer').textContent='⏰ SPEAK NOW';}
+  },1000);
+}
+function revealSim(){
+  clearInterval(simTimerIv);
+  const q=simQueue[simIdx];
+  const m=document.getElementById('simModel');
+  m.innerHTML='<b style="color:var(--gold)">📋 Model answer:</b><br>'+q[1]+
+    '<br><br><span class="muted">Did you cover the key points? Structure: definition → how it works → example/command → gotcha.</span>';
+  m.classList.add('show');
+  document.getElementById('simRevealBtn').classList.add('hidden');
+  document.getElementById('simGrades').style.display='flex';
+}
+function gradeSim(g){
+  const q=simQueue[simIdx];
+  S.sim[q[2]]=S.sim[q[2]]||{att:0,sum:0};
+  S.sim[q[2]].att++; S.sim[q[2]].sum+=g;
+  simSum+=g;
+  addXP(g>=4?20:5);
+  if(g===5){ comboFloat('⭐ PERFECT ANSWER',innerWidth/2-120,200,true); mascotSay('Hiring manager just leaned FORWARD 👀',true); confetti(); }
+  else if(g<=2&&Math.random()<.5) mascotSay('Say it out loud again — you got this 💪');
+  S.simHist.push({q:q[0],g,at:Date.now()});
+  save();
+  simIdx++;
+  if(simIdx<simQueue.length) showSimQ();
+  else{
+    document.getElementById('simPlay').classList.add('hidden');
+    const avg=simSum/simQueue.length;
+    const el=document.getElementById('simScore');
+    el.textContent=avg.toFixed(1)+' / 5';
+    el.style.color=avg>=4?'var(--green)':avg>=3?'var(--gold)':'var(--pink)';
+    document.getElementById('simMsg').innerHTML=
+      avg>=4.5?'🏆 You\'re READY. Protect the streak, sleep, light review on the day.':
+      avg>=4?'🏆 You sound like an L1 already. Repeat tomorrow.':
+      avg>=3?'🤝 Honest grading = real progress. Re-run weak topics in Quiz Arena.':
+      '📚 That\'s what the remaining days are for. Watch → Quiz → Sim again.';
+    document.getElementById('simDone').classList.remove('hidden');
+    if(avg>=4.5){grantAch('mock45');confetti();sndLvl();addXP(100);}
+    else if(avg>=4)addXP(50);
+  }
+}
+function resetSim(){
+  document.getElementById('simDone').classList.add('hidden');
+  document.getElementById('simStart').classList.remove('hidden');
+}
+
+// READINESS TAB
+function renderReady(){
+  document.getElementById('readyBig').textContent=Math.round(readiness()*100)+'%';
+  document.getElementById('topicBars').innerHTML=TOPICS.map(t=>{
+    const st=topicStat(t), pct=Math.round(st.score*100);
+    return `<div class="topic-row">
+      <div class="topic-name"><span>${t}</span><span style="color:${TCOLORS[t]}">${pct}% ${st.quiz.att?'· Q'+st.quiz.cor+'/'+st.quiz.att:''}</span></div>
+      <div class="topic-bar"><div class="topic-fill" style="width:${pct}%;background:${TCOLORS[t]}"></div></div>
+    </div>`;
+  }).join('');
+  const scored=TOPICS.map(t=>[t,topicStat(t).score]).sort((a,b)=>a[1]-b[1]);
+  document.getElementById('weakList').innerHTML=
+    scored.filter(x=>x[1]<.6).slice(0,6).map(x=>`<li>${x[0]} — ${Math.round(x[1]*100)}% → ${adviceFor(x[0])}</li>`).join('')||'<li style="color:var(--mut)">None — you\'re on fire! 🔥</li>';
+  document.getElementById('strongList').innerHTML=
+    scored.filter(x=>x[1]>=.8).map(x=>`<li>${x[0]} — ${Math.round(x[1]*100)}%</li>`).join('')||'<li style="color:var(--mut)">Keep grinding to build strong areas</li>';
+  document.getElementById('coachBox').innerHTML=coachMsg(scored);
+}
+function adviceFor(t){
+  const map={'Fundamentals':'watch D1–D3','Switching':'watch D8–D9','VLAN & Trunking':'watch D4, D9–D10',
+  'STP':'watch D11–D12','EtherChannel':'watch D13','Security':'watch D14','Services':'watch D14',
+  'Routing':'watch D3, D8','OSPF':'watch D4, D7','EIGRP':'watch D6','NAT':'watch D16','ACL':'watch D15',
+  'Scenarios':'watch S1–S3','Troubleshooting':'run Interview Sim'};
+  return map[t]||'quiz it';
+}
+function coachMsg(scored){
+  const r=readiness();
+  const weakest=scored[0];
+  const days=Math.max(0,Math.ceil((new Date('2026-09-16T15:00:00')-new Date())/864e5));
+  if(r<.2)return `🧢 <b>Coach:</b> Day one energy — I love it. Start: <b>📺 ${weakest[0]}</b> (${adviceFor(weakest[0])}), mark questions, then <b>⚡ Quiz Arena</b>. Small daily loops.`;
+  if(r<.5)return `📶 <b>Coach:</b> Building. ${days} day(s) out — kryptonite is <b>${weakest[0]}</b> (${adviceFor(weakest[0])}). One quiz run on it NOW + flashcards tonight.`;
+  if(r<.75)return `⚡ <b>Coach:</b> Over halfway. Daily: 1 video + 1 quiz + 10 flashcards + 1 mock. Focus: <b>${weakest[0]}</b>.`;
+  return `🏆 <b>Coach:</b> Interview-ready! Protect the streak, sleep before the big day, one light mock the morning of Sep 16. Go get that offer!`;
+}
+
+function exportProgress(){
+  const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='study_buddy_progress.json';
+  a.click();
+}
+
+// KEYBOARD
+document.addEventListener('keydown',e=>{
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT') return;
+  const quizVisible=!document.getElementById('quizPlay').classList.contains('hidden');
+  const flashVisible=!document.getElementById('flashPlay').classList.contains('hidden');
+  if(quizVisible){
+    if(['1','2','3','4'].includes(e.key)){
+      const opts=document.querySelectorAll('#quizOpts .opt:not(:disabled)');
+      const i=+e.key-1;
+      if(opts[i]) opts[i].click();
+    }
+    if(e.key==='Enter'){ const n=document.getElementById('quizNext'); if(n.classList.contains('show')) n.click(); }
+  }
+  if(flashVisible){
+    if(e.key===' '){ e.preventDefault(); flipFlash(); }
+    if(flashFlipped&&['1','2','3','4'].includes(e.key)) gradeFlash(+e.key-1);
+  }
+});
+
+// TABS
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('panel-'+t.dataset.tab).classList.add('active');
+    if(t.dataset.tab==='ready') renderReady();
+    if(t.dataset.tab==='ach') renderAch();
+    if(t.dataset.tab==='watch') renderMission();
+  };
+});
+
+// COUNTDOWN
+function tickCountdown(){
+  const tgt=new Date('2026-09-16T15:00:00');
+  let d=tgt-new Date(); if(d<0)d=0;
+  const dd=Math.floor(d/864e5),hh=Math.floor(d%864e5/36e5),mm=Math.floor(d%36e5/6e4);
+  const el=document.getElementById('cd');
+  if(el) el.textContent=dd+'d '+hh+'h '+mm+'m';
+}
+tickCountdown();
+setInterval(tickCountdown,30000);
+
+// ================= AUTH & CLOUD SYNC =================
+let authMode='in'; // 'in' = sign in, 'up' = sign up
+function showAuth(){
+  const ov=document.getElementById('authov');
+  if(!ov) return;
+  if(!FB_READY){
+    document.getElementById('authNoCfg').classList.remove('hidden');
+    document.getElementById('authForm').classList.add('hidden');
+  }
+  setAuthMode(authMode);
+  ov.classList.add('show');
+  setTimeout(()=>{ const e=document.getElementById('auEmail'); if(e&&FB_READY) e.focus(); },100);
+}
+function hideAuth(){ document.getElementById('authov').classList.remove('show'); }
+function setAuthMode(m){
+  authMode=m;
+  document.getElementById('atIn').classList.toggle('on',m==='in');
+  document.getElementById('atUp').classList.toggle('on',m==='up');
+  document.getElementById('auName').style.display=m==='up'?'block':'none';
+  document.getElementById('authGo').textContent=m==='up'?'Create account 🚀':'Sign in';
+  document.getElementById('authErr').textContent='';
+}
+function authError(e){
+  const map={
+    'auth/email-already-in-use':'That email already has an account — try Sign In instead.',
+    'auth/invalid-email':'That email address looks wrong.',
+    'auth/weak-password':'Password too weak — use at least 6 characters.',
+    'auth/wrong-password':'Wrong password. Use "Forgot password?" if needed.',
+    'auth/user-not-found':'No account with that email — try Sign Up.',
+    'auth/invalid-credential':'Email or password is incorrect.',
+    'auth/too-many-requests':'Too many attempts — wait a minute and retry.',
+    'auth/network-request-failed':'Network error — check your connection.',
+    'auth/operation-not-allowed':'Email sign-in not enabled in Firebase console yet.'
+  };
+  const msg=map[e&&e.code]||('Something went wrong: '+((e&&e.code)||e));
+  document.getElementById('authErr').textContent=msg;
+}
+async function submitAuth(){
+  const em=document.getElementById('auEmail').value.trim().toLowerCase();
+  const pw=document.getElementById('auPass').value;
+  const nm=document.getElementById('auName').value.trim();
+  const err=document.getElementById('authErr');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em)){ err.textContent='Enter a valid email address.'; return; }
+  if(pw.length<6){ err.textContent='Password must be at least 6 characters.'; return; }
+  const go=document.getElementById('authGo');
+  go.disabled=true; go.textContent='Please wait…';
+  try{
+    if(authMode==='up'){
+      const cred=await auth.createUserWithEmailAndPassword(em,pw);
+      if(nm){ try{ await cred.user.updateProfile({displayName:nm}); }catch(e){} }
+      toast('🎉 Account created — your progress is now saved to the cloud!');
+    }else{
+      await auth.signInWithEmailAndPassword(em,pw);
+    }
+    hideAuth();
+  }catch(e){ authError(e); }
+  go.disabled=false; setAuthMode(authMode);
+}
+async function resetPass(){
+  const em=document.getElementById('auEmail').value.trim().toLowerCase();
+  if(!em){ document.getElementById('authErr').textContent='Type your email above first, then click Forgot password.'; return; }
+  try{ await auth.sendPasswordResetEmail(em); toast('📧 Password reset link sent to '+em); }
+  catch(e){ authError(e); }
+}
+function guestGo(){ try{ localStorage.setItem('sb_guest','1'); }catch(e){} hideAuth(); toast('👤 Guest mode — progress stays in this browser'); }
+function maybeShowAuth(){
+  if(!FB_READY) return;
+  let g=false; try{ g=!!localStorage.getItem('sb_guest'); }catch(e){}
+  if(!currentUser && !g) showAuth();
+}
+function onAuth(u){
+  currentUser=u;
+  renderUserChip();
+  if(u){
+    try{ localStorage.removeItem('sb_guest'); }catch(e){}
+    hideAuth();
+    loadCloud(u.uid);
+  }else{
+    maybeShowAuth();
+  }
+}
+async function loadCloud(uid){
+  try{
+    const snap=await db.collection('users').doc(uid).get();
+    const remote=snap.exists?(snap.data().progress||null):null;
+    if(remote && (remote.updatedAt||0)>(S.updatedAt||0)){
+      S=Object.assign({},remote);
+      localStorage.setItem(KEY,JSON.stringify(S));
+      renderAll();
+      toast('☁️ Progress loaded — welcome back, '+((currentUser&&currentUser.displayName)||'friend')+'!');
+    }else{
+      await pushCloud(true);
+      renderAll();
+      toast('☁️ Progress synced to your account!');
+    }
+  }catch(e){ console.warn('cloud load failed',e); toast('⚠️ Cloud sync failed — working from local copy'); }
+}
+let syncTm=null;
+function scheduleSync(){ if(!currentUser||!db) return; clearTimeout(syncTm); syncTm=setTimeout(()=>pushCloud(true),3000); }
+async function pushCloud(now){
+  if(!currentUser||!db) return;
+  if(now!==true){ scheduleSync(); return; }
+  try{
+    S.updatedAt=Date.now();
+    await db.collection('users').doc(currentUser.uid).set({
+      email:currentUser.email,
+      name:(currentUser.displayName)||'',
+      progress:S
+    });
+    localStorage.setItem(KEY,JSON.stringify(S));
+    const d=document.getElementById('syncDot');
+    if(d){ d.classList.add('on'); setTimeout(()=>d.classList.remove('on'),1500); }
+  }catch(e){ console.warn('cloud push failed',e); }
+}
+function renderUserChip(){
+  const b=document.getElementById('userBtn');
+  if(!b) return;
+  if(currentUser){
+    b.innerHTML='👤<span id="syncDot"></span>';
+    b.title=currentUser.email+(currentUser.displayName?' ('+currentUser.displayName+')':'')+' — click to sign out';
+  }else{
+    b.innerHTML=(FB_READY?'🔐':'👤')+'<span id="syncDot"></span>';
+    b.title=FB_READY?'Sign in to save progress to the cloud':'Cloud sync not configured';
+  }
+}
+function userBtnClick(){
+  if(!FB_READY){ toast('Cloud sync not configured — running in guest mode'); return; }
+  if(currentUser){
+    if(confirm('Sign out? Your progress is saved to the cloud and will be here when you return.')){
+      pushCloud(true).finally(()=>{ try{ auth.signOut(); }catch(e){} });
+    }
+  }else showAuth();
+}
+function renderAll(){
+  renderStats();
+  try{ renderMission(); }catch(e){}
+  try{ renderAch(); }catch(e){}
+  try{ renderVideoQs(); }catch(e){}
+}
+window.addEventListener('beforeunload',()=>{ if(currentUser) pushCloud(true); });
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden'&&currentUser) pushCloud(true); });
+
+// INIT
+checkStreak();
+document.getElementById('sndBtn').textContent=S.sound?'🔊':'🔇';
+document.getElementById('qCount').textContent=QUIZ.length;
+renderUserChip();
+buildVideoSelect();
+buildQuizFilters();
+// Play one-time intro video at app startup (skippable for free)
+playIntroFor(VIDEOS[0].id);
+renderMission();
+renderStats();
+renderAch();
+// fun layer init
+updateMascotIcon();
+updateStreakFlame();
+setTimeout(()=>mascotSay(S.streak>=2?`Welcome back! ${S.streak}-day streak 🔥 — feed the flame!`:'New day, new XP. Let\'s go! 🚀',true),1200);
+</script>
+</body>
+</html>
